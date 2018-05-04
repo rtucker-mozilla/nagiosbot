@@ -1,0 +1,6 @@
+node_modules
+.DS_Store*
+.hubot_history
+slack_settings.env
+irc_settings.env
+.*.sw[op]
