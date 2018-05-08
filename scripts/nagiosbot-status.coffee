@@ -41,8 +41,6 @@ module.exports = (robot) ->
           hostsUp = ss.livestatusHostsUpCount(hostResponse)
           hostsWarning = ss.livestatusHostsWarningCount(hostResponse)
           hostsDown = ss.livestatusHostsDownCount(hostResponse)
-          robot.messageRoom room, "#{user}:   Hosts Total/Up/Warning/Down"
-          robot.messageRoom room, "#{user}: #{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}"
-          
-          console.log(hostResponse)
-          console.log(serviceResponse)
+          message = "#{user}:   Hosts Total/Up/Warning/Down\n"
+          message = message + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
+          robot.messageRoom room, message
