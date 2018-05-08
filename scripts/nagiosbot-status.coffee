@@ -11,6 +11,7 @@
 utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
 livestatus = require("./livestatus.js")
+leftPad = require("left-pad")
 module.exports = (robot) ->
   #
   # here is the entrypoint router
@@ -47,7 +48,7 @@ module.exports = (robot) ->
 
           servicesDown = ss.livestatusServicesDownCount(serviceResponse)
           message = "#{user}: Hosts Total/Up/Warning/Down\n"
-          message = message + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n".padStart(user.length + 1)
+          message = message + leftPad("#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n", user.length + 1))
           message = message + "#{user}: Services Total/Up/Warning/Down\n"
           message = message + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
           robot.messageRoom room, message
