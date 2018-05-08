@@ -37,6 +37,12 @@ module.exports = (robot) ->
         hostResponse = data
         livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, serviceQuery, (serviceData) =>
           serviceResponse = serviceData
+          totalHosts = ss.livestatusHostsCount(hostResponse)
+          totalUp = ss.livestatusHostsUpCount(hostResponse)
+          totalWarning = ss.livestatusHostsWarningCount(hostResponse)
+          totalDown = ss.livestatusHostsDownCount(hostResponse)
+          robot.messageRoom room, "#{user}:   Hosts Total/Up/Warning/Down"
+          robot.messageRoom room, "#{user}: #{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}"
+          
           console.log(hostResponse)
           console.log(serviceResponse)
-    #robot.messageRoom room, "#{user}: #{messageText}"
