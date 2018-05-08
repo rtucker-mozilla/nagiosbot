@@ -9,7 +9,7 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
 utils = require("./utils.coffee")
-ss = require("./servers-stats.coffee")
+ss = require("./server-stats.coffee")
 module.exports = (robot) ->
   #
   # here is the entrypoint router
