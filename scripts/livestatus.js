@@ -2,7 +2,7 @@ var net = require('net')
 module.exports.executeQuery = function(socketPath, query, cb){
     var client = net.createConnection(socketPath);
     client.on("connect",  function() {
-        client.write("GET hosts\n\n", function(data){
+        client.write(query, function(data){
         });
     });
     //client.destroy(); // kill client after server's response
@@ -11,3 +11,4 @@ module.exports.executeQuery = function(socketPath, query, cb){
         cb(data.toString());
     });
 };
+
