@@ -10,6 +10,7 @@
 
 utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
+livestatus = require("./livestatus.js")
 module.exports = (robot) ->
   #
   # here is the entrypoint router
