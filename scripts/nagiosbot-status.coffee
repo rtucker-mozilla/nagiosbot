@@ -47,8 +47,11 @@ module.exports = (robot) ->
           servicesWarning = ss.livestatusServicesWarningCount(serviceResponse)
 
           servicesDown = ss.livestatusServicesDownCount(serviceResponse)
+          paddingLength = user.length + 2
           message = "#{user}: Hosts Total/Up/Warning/Down\n"
-          message = message + leftPad("#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n", user.length + 1)
-          message = message + "#{user}: Services Total/Up/Warning/Down\n"
-          message = message + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
+          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
+          message = message + " ".repeat(paddingLength) + "#{user}: Services Total/Up/Warning/Down\n"
+          message = message + " ".repeat(paddingLength) + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
+          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
+          message = "```" + message + "```"
           robot.messageRoom room, message
