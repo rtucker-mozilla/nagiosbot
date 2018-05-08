@@ -1,0 +1,12 @@
+access01.df501-1.vlan.loc2.domain.net;0;PING OK - Packet loss = 0%, RTA = 68.23 ms;1525776880;0;access01.df501-1.vlan.loc2.domain.net
+basket.domain.org;0;OK;1525776864;0;basket.domain.org
+border1.vlan.mtv2.domain.net;0;PING OK - Packet loss = 0%, RTA = 3.13 ms;1525776891;0;border1.vlan.mtv2.domain.net
+border1.vlan.loc3.domain.net;0;PING OK - Packet loss = 0%, RTA = 4.78 ms;1525776905;0;10.99.99.65
+careers.domain.org;0;OK;1525776831;0;careers.domain.org
+cdn.domain.net;0;PING OK - Packet loss = 0%, RTA = 11.62 ms;1525776875;0;cdn.domain.net
+moc-test1.vlan.scl3.domain.com;0;PING OK - Packet loss = 0%, RTA = 0.37 ms;1525776839;0;10.22.75.241
+v224.core1.corp.loc3.domain.net;2;PING OK - Packet loss = 0%, RTA = 7.04 ms;1525776801;0;v224.core1.corp.loc3.domain.net
+v248.core1.corp.loc3.domain.net;0;PING OK - Packet loss = 0%, RTA = 5.93 ms;1525776781;0;v248.core1.corp.loc3.domain.net
+v4094.core1.admin.loc3.domain.net;0;PING OK - Packet loss = 0%, RTA = 6.51 ms;1525776806;0;v4094.core1.admin.loc3.domain.net
+www.makes.org;1;OK;1525776866;0;www.makes.org
+www.domainfoundation.org;1;PING OK - Packet loss = 0%, RTA = 11.59 ms;1525776883;0;www.domainfoundation.org

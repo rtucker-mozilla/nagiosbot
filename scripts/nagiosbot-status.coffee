@@ -9,6 +9,7 @@
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
 utils = require("./utils.coffee")
+ss = require("./servers-stats.coffee")
 module.exports = (robot) ->
   #
   # here is the entrypoint router
@@ -18,9 +19,9 @@ module.exports = (robot) ->
   # start by removing the robot name and then emitting to the
   # proper endpoint
   #
-    
+
   robot.on "status", (msg, user) ->
-    
+
     messageText = utils.removeName(robot, msg.message.text)
     room = msg.envelope.room
     if utils.actionIndex("status", messageText) == 0
@@ -28,4 +29,8 @@ module.exports = (robot) ->
 
   # read the global status.dat file
   robot.on "status:global", (messageText, user, room) ->
-    robot.messageRoom room, "#{user}: #{messageText}"
+    if process.env.HUBOT_USE_MKLIVE_STATUS=="true"
+      livestatus.executeQuery "/var/log/nagios/rw/live", "GET Hosts\n\n", (data) =>
+        console.log(data)
+        robot.messageRoom room, data
+    #robot.messageRoom room, "#{user}: #{messageText}"
