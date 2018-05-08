@@ -30,7 +30,12 @@ module.exports = (robot) ->
   # read the global status.dat file
   robot.on "status:global", (messageText, user, room) ->
     if process.env.HUBOT_USE_MKLIVE_STATUS=="true"
-      livestatus.executeQuery "/var/log/nagios/rw/live", "GET Hosts\n\n", (data) =>
-        console.log(data)
-        robot.messageRoom room, data
+      hostQuery = "GET hosts\nColumns: host_name state plugin_output last_check host_acknowledged address\n"
+      serviceQuery = "GET services\nColumns: host_name state plugin_output last_check service_acknowledged description\n"
+      livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
+        hostResponse = data
+        livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, serviceQuery, (serviceData) =>
+          serviceResponse = serviceData
+          console.log(hostResponse)
+          console.log(serviceResponse)
     #robot.messageRoom room, "#{user}: #{messageText}"
