@@ -48,9 +48,21 @@ module.exports = (robot) ->
 
           servicesDown = ss.livestatusServicesDownCount(serviceResponse)
           paddingLength = user.length + 2
-          message = "#{user}: Hosts Total/Up/Warning/Down\n"
-          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
-          message = message + " ".repeat(paddingLength) + "#{user}: Services Total/Up/Warning/Down\n"
+          hostsHeader = [
+            "Hosts Total",
+            "Up",
+            "Warning",
+            "Down",
+          ]
+          servicesHeader = [
+            "Services Total",
+            "Up",
+            "Warning",
+            "Down",
+          ]
+          message = "#{user}: " + hostsHeader.join("/") + "\n"
+          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{utils.padToMatchLength(hostsHeader[0],hostsUp)}/#{hostsWarning}/#{hostsDown}\n"
+          message = message + " ".repeat(paddingLength) + "#Services Total/Up/Warning/Down\n"
           message = message + " ".repeat(paddingLength) + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
           message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
           message = "```" + message + "```"

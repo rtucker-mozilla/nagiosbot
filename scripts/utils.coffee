@@ -11,3 +11,7 @@ module.exports.actionIndex = (needle, haystack) ->
       return counter
     counter++
   false
+
+module.exports.padToMatchLength = (longString, shortString) ->
+  lengthDiff = longString.length - shortString.length
+  " ".repeat(lengthDiff) + shortString

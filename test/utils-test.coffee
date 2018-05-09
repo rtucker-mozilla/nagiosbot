@@ -77,3 +77,18 @@ describe 'utils.actionIndex', ->
   it 'actionIndex set properly middle item', ->
     message = "status foo bar baz"
     expect(utils.actionIndex('foo', message)).to.equal(1)
+
+describe 'utils.padToMatchLength', ->
+  beforeEach ->
+    @robot = {}
+    @robot.name = "nagiosbot"
+    @room = helper.createRoom()
+
+  afterEach ->
+    @room.destroy()
+
+  it 'padToLength pads correctly', ->
+    header = "Total Hosts"
+    count = "11"
+    proper = "         11"
+    expect(utils.padToMatchLength(header, count)).to.equal(proper)
