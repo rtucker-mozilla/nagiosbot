@@ -62,7 +62,7 @@ module.exports = (robot) ->
           ]
           message = "#{user}: " + hostsHeader.join("/") + "\n"
           message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
-          message = message + "#{user}: " + servicesHeader.join("/") + "\n"
+          message = message + " ".repeat(paddingLength - 3) + servicesHeader.join("/") + "\n"
           message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(servicesHeader[0],totalServices)}/#{utils.padToMatchLength(servicesHeader[1],servicesUp)}/#{utils.padToMatchLength(servicesHeader[2], servicesWarning)}/#{utils.padToMatchLength(servicesHeader[3], servicesDown)}\n"
           message = "```" + message + "```"
           robot.messageRoom room, message
