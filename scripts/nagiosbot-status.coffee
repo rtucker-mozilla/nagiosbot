@@ -61,7 +61,7 @@ module.exports = (robot) ->
             "Down",
           ]
           message = "#{user}: " + hostsHeader.join("/") + "\n"
-          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{utils.padToMatchLength(hostsHeader[0],hostsUp)}/#{hostsWarning}/#{hostsDown}\n"
+          message = message + " ".repeat(paddingLength) + "#{utils.PadToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[0],hostsUp)}/#{hostsWarning}/#{hostsDown}\n"
           message = message + " ".repeat(paddingLength) + "#Services Total/Up/Warning/Down\n"
           message = message + " ".repeat(paddingLength) + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
           message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
