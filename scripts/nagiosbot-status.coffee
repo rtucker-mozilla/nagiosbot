@@ -56,7 +56,7 @@ module.exports = (robot) ->
           ]
           servicesHeader = [
             "Services Total",
-            "         Up",
+            "      Up",
             "      Warning",
             "      Down",
           ]
