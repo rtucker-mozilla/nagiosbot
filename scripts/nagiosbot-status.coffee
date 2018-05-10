@@ -50,9 +50,9 @@ module.exports = (robot) ->
           paddingLength = user.length + 2
           hostsHeader = [
             "Hosts Total",
-            "Up",
-            "Warning",
-            "Down",
+            "Hosts Up",
+            "Hosts Warning",
+            "Hosts Down",
           ]
           servicesHeader = [
             "Services Total",
