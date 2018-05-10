@@ -98,3 +98,9 @@ describe 'utils.padToMatchLength', ->
     count = 11
     proper = "         11"
     expect(utils.padToMatchLength(header, count)).to.equal(proper)
+
+  it 'padToLength pads correctly negative offset', ->
+    header = "Total Hosts"
+    count = 11
+    proper = "      11"
+    expect(utils.padToMatchLength(header, count, offset=-3)).to.equal(proper)
