@@ -45,8 +45,8 @@ module.exports = (robot) ->
           totalServices = ss.livestatusServicesCount(serviceResponse)
           servicesUp = ss.livestatusServicesUpCount(serviceResponse)
           servicesWarning = ss.livestatusServicesWarningCount(serviceResponse)
-
           servicesDown = ss.livestatusServicesDownCount(serviceResponse)
+
           paddingLength = user.length + 2
           hostsHeader = [
             "Hosts Total",
@@ -62,8 +62,8 @@ module.exports = (robot) ->
           ]
           message = "#{user}: " + hostsHeader.join("/") + "\n"
           message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
-          message = message + " ".repeat(paddingLength) + "#Services Total/Up/Warning/Down\n"
+          message = "#{user}: " + servicesHeader.join("/") + "\n"
           message = message + " ".repeat(paddingLength) + "#{totalServices}/#{servicesUp}/#{servicesWarning}/#{servicesDown}\n"
-          message = message + " ".repeat(paddingLength) + "#{totalHosts}/#{hostsUp}/#{hostsWarning}/#{hostsDown}\n"
+          message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(servicesHeader[0],totalServices)}/#{utils.padToMatchLength(servicesHeader[1],servicesUp)}/#{utils.padToMatchLength(servicesHeader[2], servicesWarning)}/#{utils.padToMatchLength(servicesHeader[3], servicesDown)}\n"
           message = "```" + message + "```"
           robot.messageRoom room, message
