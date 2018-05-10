@@ -55,7 +55,7 @@ module.exports = (robot) ->
             "Hosts Down",
           ]
           servicesHeader = [
-            "Serv Total",
+            "Services Total",
             "Serv Up",
             "Serv Warning",
             "Serv Down",
