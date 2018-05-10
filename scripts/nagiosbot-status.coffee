@@ -55,10 +55,10 @@ module.exports = (robot) ->
             "Hosts Down",
           ]
           servicesHeader = [
-            "Services Total",
-            "Services Up",
-            "Services Warning",
-            "Services Down",
+            "Serv Total",
+            "Serv Up",
+            "Serv Warning",
+            "Serv Down",
           ]
           message = "#{user}: " + hostsHeader.join("/") + "\n"
           message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
