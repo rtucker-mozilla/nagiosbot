@@ -32,4 +32,4 @@ module.exports = (robot) ->
       if commandArray.length == 1
         robot.emit "status:global", messageText, user, room
       else
-        robot.emit "status:global", messageText, user, room
+        console.log("additional parsing")
