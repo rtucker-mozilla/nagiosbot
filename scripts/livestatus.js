@@ -12,3 +12,22 @@ module.exports.executeQuery = function(socketPath, query, cb){
     });
 };
 
+module.exports.buildWildcardQuery = function(iStr){
+  if(iStr.startsWith("*") && iStr.endsWith("*")){
+    return iStr.replace(/\*/g,'');
+  }
+  if(!iStr.startsWith("*") && !iStr.endsWith("*")){
+    return "^" + iStr.replace(/\*/g,'') + "$";
+  }
+  if(!iStr.endsWith("*")){
+    return iStr.replace(/\*/g,'') + "$";
+  }
+  if(!iStr.startsWith("*")){
+    return "^" + iStr.replace(/\*/g,'');
+  }
+  if(!iStr.endsWith("*")){
+    return iStr.replace(/\*/g,'') + "$";
+  }
+
+};
+
