@@ -22,7 +22,7 @@ module.exports = (robot) ->
         "Columns: host_name state plugin_output last_check host_acknowledged address",
         "Filter: host_name ~ " + livestatus.buildWildcardQuery(messageObject.hostName)
       ]
-      hostQuery = hostQueryArray.join("n") + "\n\n"
+      hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
-      hostResponse = data
-      robot.messageRoom room, hostResponse
+        hostResponse = data
+        robot.messageRoom room, hostResponse
