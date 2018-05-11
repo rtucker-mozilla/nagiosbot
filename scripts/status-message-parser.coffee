@@ -1,7 +1,16 @@
 module.exports.parse = (message) ->
   # slack appends http:// in front of hostnames
   # work around it
-  message = message.replace(/status\s+http\:\/\//,'status ')
+
+  if message.match(/status\s+http\:\/\//)
+    message = message.replace(/status http\:\/\//, "status ")
+  else if message.match(/status\s+\*\.http\:\/\//)
+    message = message.replace(/status\s+\*\.http\:\/\//, "status *.")
+  else if message.match(/status\s+[\*]http\:\/\//)
+    message = message.replace(/status\s+\*http\:\/\//, "status *")
+  else
+    message = message.replace("status http://", "status ")
+
   ret = {}
   ret.hostName = ""
   ret.serviceName = ""
@@ -24,6 +33,6 @@ module.exports.parse = (message) ->
       ret.serviceWildcard = true
   else if match = message.match(hostOnlyRegex)
     ret.hostOnly = true
-    ret.hostName = match[1]
+    ret.hostName = match[1].replace("http://", "")
     ret.emitCode = "status:host"
   return ret
