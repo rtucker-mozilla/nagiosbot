@@ -12,8 +12,8 @@ utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
 livestatus = require("./livestatus.js")
 leftPad = require("left-pad")
-module.exports = (robot) ->
 smp = require("./status-message-parser.coffee")
+module.exports = (robot) ->
   #
   # here is the entrypoint router
   # we want to be adapter agnostic and there are
@@ -24,9 +24,8 @@ smp = require("./status-message-parser.coffee")
   #
 
   robot.on "status", (msg, user) ->
-
     messageText = utils.removeName(robot, msg.message.text)
     room = msg.envelope.room
     if utils.actionIndex("status", messageText) == 0
       statusMessageObject = smp.parse(messageText)
-        robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
+      robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
