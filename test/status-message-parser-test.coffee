@@ -30,6 +30,11 @@ describe 'status-message-parser.parse', ->
     resp = parser.parse(message)
     expect(resp.hostOnly).to.equal(true)
 
+  it 'hostname only service status sets proper hostOnly when host starts with http://', ->
+    message = "status http://foo.bar.domain.com"
+    resp = parser.parse(message)
+    expect(resp.message).to.equal("status foo.bar.domain.com")
+
   it 'hostname only service status sets proper hostName', ->
     message = "status foo.bar.domain.com"
     resp = parser.parse(message)

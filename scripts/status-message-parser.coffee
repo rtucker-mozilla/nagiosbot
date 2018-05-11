@@ -1,7 +1,7 @@
 module.exports.parse = (message) ->
   # slack appends http:// in front of hostnames
   # work around it
-  message = message.replace(/service\s+http\:\/\//,'')
+  message = message.replace(/status\s+http\:\/\//,'status ')
   ret = {}
   ret.hostName = ""
   ret.serviceName = ""
@@ -26,5 +26,4 @@ module.exports.parse = (message) ->
     ret.hostOnly = true
     ret.hostName = match[1]
     ret.emitCode = "status:host"
-  console.log(ret)
   return ret
