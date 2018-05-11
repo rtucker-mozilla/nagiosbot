@@ -25,4 +25,5 @@ module.exports = (robot) ->
       hostQuery = hostQueryArray.join("n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
       hostResponse = data
+      console.log(hostQuery)
       robot.messageRoom room, hostResponse
