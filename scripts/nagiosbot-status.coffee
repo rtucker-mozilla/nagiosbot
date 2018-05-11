@@ -13,6 +13,7 @@ ss = require("./server-stats.coffee")
 livestatus = require("./livestatus.js")
 leftPad = require("left-pad")
 module.exports = (robot) ->
+smp = require("./status-message-parser.coffee")
   #
   # here is the entrypoint router
   # we want to be adapter agnostic and there are
@@ -27,9 +28,5 @@ module.exports = (robot) ->
     messageText = utils.removeName(robot, msg.message.text)
     room = msg.envelope.room
     if utils.actionIndex("status", messageText) == 0
-      commandArray = messageText.split(" ")
-      console.log(commandArray)
-      if commandArray.length == 1
-        robot.emit "status:global", messageText, user, room
-      else
-        console.log("additional parsing")
+      statusMessageObject = smp.parse(messageText)
+        robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
