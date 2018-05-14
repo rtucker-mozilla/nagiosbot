@@ -25,4 +25,15 @@ module.exports = (robot) ->
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
         hostResponse = data
-        robot.messageRoom room, hostResponse
+        robot.emit 'slack-attachment',
+          channel: room
+          username: "CustomBotName"
+          icon_url: "https://slack.global.ssl.fastly.net/9fa2/img/services/hubot_128.png"
+          content:
+            fallback: "fallback"
+            title: "Nagios Host Status"
+            title_link: "https://github.com"
+            text: hostResponse
+            image_url: "https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png"
+            color: "#111111"
+# robot.messageRoom room, hostResponse
