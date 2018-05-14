@@ -1,4 +1,5 @@
 module.exports.parse = (message) ->
+
   # slack appends http:// in front of hostnames
   # work around it
 
@@ -22,8 +23,8 @@ module.exports.parse = (message) ->
   if message == "status"
     ret.emitCode = "status:global"
     return ret
-  serviceRegex = /^status[\s:]+(.*[^\:])+:(.*)$/
-  hostOnlyRegex = /^status[\s:]+(.*)/
+  serviceRegex = /^status[\s\:]+(.*):(.*)/
+  hostOnlyRegex = /^status[\s\:]+(.*)/
   if match = message.match(serviceRegex)
     ret.hasService = true
     ret.hostName = match[1]

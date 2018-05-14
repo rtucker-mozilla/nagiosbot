@@ -30,6 +30,12 @@ describe 'status-message-parser.parse', ->
     resp = parser.parse(message)
     expect(resp.hostOnly).to.equal(true)
 
+  it 'hostname only service status sets proper hostOnly with dashes', ->
+    console.log('sadfsdfasdfsdf')
+    message = "status node.df501-1.vlan.location.domain.net"
+    resp = parser.parse(message)
+    expect(resp.hostOnly).to.equal(true)
+
   it 'hostname only service status sets proper hostOnly when host starts with http://', ->
     message = "status http://foo.bar.domain.com"
     resp = parser.parse(message)
