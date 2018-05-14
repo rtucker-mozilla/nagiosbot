@@ -27,7 +27,7 @@ module.exports = (robot) ->
         hostResponse = data
         robot.emit 'slack-attachment',
           channel: room
-          username: "CustomBotName"
+          username: robot.name
           icon_url: "https://slack.global.ssl.fastly.net/9fa2/img/services/hubot_128.png"
           content:
             fallback: "fallback"
