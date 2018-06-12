@@ -33,7 +33,7 @@ describe 'server-stats', ->
 
   it 'return proper hosts warning count', ->
     livestatusResponse = fs.readFileSync "test/fixtures/hostresponse", 'utf8'
-    expect(ss.livestatusHostsWarningCount(livestatusResponse)).to.equal(2)
+    expect(ss.livestatusHostsWarningCount(livestatusResponse)).to.equal(1)
 
   it 'return proper hosts down count', ->
     livestatusResponse = fs.readFileSync "test/fixtures/hostresponse", 'utf8'

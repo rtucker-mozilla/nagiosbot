@@ -1,3 +1,17 @@
+statuses = {
+  0 : {
+    'Text': 'OK'
+  },
+  1 : {
+    'Text': 'WARNING'
+  },
+  2 : {
+    'Text': 'CRITICAL'
+  },
+  3 : {
+    'Text': 'UNKNOWN'
+  },
+}
 module.exports.parse = (message) ->
 
   # slack appends http:// in front of hostnames
@@ -37,3 +51,58 @@ module.exports.parse = (message) ->
     ret.hostName = match[1].replace("http://", "")
     ret.emitCode = "status:host"
   return ret
+
+module.exports.splitResponse = (response) ->
+  ret = []
+  for line in response.split("\n")
+    if line.length > 1
+      ret.push(line)
+  return ret
+
+module.exports.segmentByDelimeter = (input, delimeter, index) ->
+  return input.split(delimeter)[index]
+
+module.exports.hostNameByLine = (line) -> 
+  return module.exports.segmentByDelimeter(line, ';', 0)
+
+module.exports.serviceNameByLine = (line) -> 
+  return module.exports.segmentByDelimeter(line, ';', 2)
+
+module.exports.hostNameByLine = (line) -> 
+  return module.exports.segmentByDelimeter(line, ';', 0)
+
+
+module.exports.statusDescriptionByLine = (line) ->
+  statusInteger = module.exports.statusIntegerByLine line
+  return statuses[statusInteger].Text
+    
+
+module.exports.formatStatusResponse = (response) ->
+  @lines = module.exports.splitResponse(response)
+
+exports.StatusMessageParser = class StatusMessageParser
+  constructor: (@response) ->
+
+  parse: ->
+    @splitResponse()
+
+  splitResponse: ->
+    ret = []
+    for line in @response.split("\n")
+      if line.length > 1
+        ret.push(line)
+    @lines = ret
+    return ret
+
+exports.StatusMessageLineParser = class StatusMessageLineParser
+  constructor: (@line) ->
+
+  segmentByDelimeter: (input, delimeter, index) ->
+    return input.split(delimeter)[index]
+
+  parse: ->
+    @serviceDescription = @segmentByDelimeter @line, ';', 2
+    statusIntStr = @segmentByDelimeter @line, ';', 1
+    @statusInt = parseInt statusIntStr
+    @statusText = statuses[@statusInt].Text
+    @hostName = @segmentByDelimeter @line, ';', 0

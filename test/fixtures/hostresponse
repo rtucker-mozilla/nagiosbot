@@ -8,5 +8,5 @@ moc-test1.vlan.scl3.domain.com;0;PING OK - Packet loss = 0%, RTA = 0.37 ms;15257
 v224.core1.corp.loc3.domain.net;2;PING OK - Packet loss = 0%, RTA = 7.04 ms;1525776801;0;v224.core1.corp.loc3.domain.net
 v248.core1.corp.loc3.domain.net;0;PING OK - Packet loss = 0%, RTA = 5.93 ms;1525776781;0;v248.core1.corp.loc3.domain.net
 v4094.core1.admin.loc3.domain.net;0;PING OK - Packet loss = 0%, RTA = 6.51 ms;1525776806;0;v4094.core1.admin.loc3.domain.net
-www.makes.org;1;OK;1525776866;0;www.makes.org
+www.makes.org;3;OK;1525776866;1;www.makes.org
 www.domainfoundation.org;1;PING OK - Packet loss = 0%, RTA = 11.59 ms;1525776883;0;www.domainfoundation.org
