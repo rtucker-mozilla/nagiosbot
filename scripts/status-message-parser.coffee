@@ -99,7 +99,7 @@ exports.StatusMessageParser = class StatusMessageParser
     for line in @splitResponse()
       tmp = new StatusMessageLineParser(line)
       tmp.parse()
-      addLine = "#{tmp.hostName}"
+      addLine = "#{tmp.hostName} is #{tmp.statusText} - #{tmp.serviceDescription} - Last Checked"
       if process.env.HUBOT_OK_EMOJI
         try
           addLine = process.env['HUBOT_' + tmp.statusText + '_EMOJI'] + ' ' + addLine
@@ -120,3 +120,4 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     @statusInt = parseInt statusIntStr
     @statusText = statuses[@statusInt].Text
     @hostName = @segmentByDelimeter @line, ';', 0
+    @lastChecked = @segmentByDelimeter @line, ';', 3
