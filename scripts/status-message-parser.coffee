@@ -94,6 +94,9 @@ exports.StatusMessageParser = class StatusMessageParser
     @lines = ret
     return ret
 
+  formattedResponse: ->
+    @parse()
+
 exports.StatusMessageLineParser = class StatusMessageLineParser
   constructor: (@line) ->
 

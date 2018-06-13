@@ -13,6 +13,7 @@ ss = require("./server-stats.coffee")
 livestatus = require("./livestatus.js")
 leftPad = require("left-pad")
 module.exports = (robot) ->
+smp = require("status-message-parser.coffee")
 
   # global status output
   robot.on "status:host", (messageObject, user, room) ->
@@ -25,6 +26,8 @@ module.exports = (robot) ->
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
         hostResponse = data
+        resp = new smp.StatusMessageParser(data)
+
         if robot.adapterName == "slack"
           msgData = {
             channel: room
@@ -33,7 +36,7 @@ module.exports = (robot) ->
                 fallback: "Host Status Response",
                 title: "Host Status Response",
                 title_link: "View Status",
-                text:  hostResponse,
+                text:  resp.formattedResponse(),
                 color: "#2eb886",
                 mrkdwn_in: ["text"]
               }
