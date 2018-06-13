@@ -120,4 +120,5 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     @statusInt = parseInt statusIntStr
     @statusText = statuses[@statusInt].Text
     @hostName = @segmentByDelimeter @line, ';', 0
-    @lastChecked = @segmentByDelimeter @line, ';', 3
+    lastCheckedInt = @segmentByDelimeter @line, ';', 3
+    @lastChecked = new Date(lastCheckedInt)).toUTCString(), 
