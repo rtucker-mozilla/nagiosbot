@@ -95,7 +95,11 @@ exports.StatusMessageParser = class StatusMessageParser
     return ret
 
   formattedResponse: ->
-    @parse()
+    ret = []
+    for line in @splitResponse():
+      tmp = new StatusMessageLineParser(line)
+      ret.push(tmp.hostName)
+    ret
 
 exports.StatusMessageLineParser = class StatusMessageLineParser
   constructor: (@line) ->
