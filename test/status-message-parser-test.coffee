@@ -200,3 +200,10 @@ describe 'status-message-parser.format_status_response', ->
     properServiceName = 'PING OK - Packet loss = 0%, RTA = 68.23 ms'
     expect(smlp.serviceDescription).to.equal(properServiceName)
 
+  it 'class StatusMessageLineParser outputs proper formattedResponse for OK status', ->
+    livestatusResponse = fs.readFileSync "test/fixtures/hostresponse", 'utf8'
+    lines = parser.splitResponse livestatusResponse
+    smlp = new parser.StatusMessageLineParser(lines[0])
+    lineOut = smlp.formattedResponse()
+    properLineOut = 'TBD'
+    expect(lineOut).to.equal(properLineOut)
