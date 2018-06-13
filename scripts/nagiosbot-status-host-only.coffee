@@ -27,8 +27,6 @@ module.exports = (robot) ->
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
         hostResponse = data
         resp = new smp.StatusMessageParser(data)
-        console.log(resp.formattedResponse())
-
         if robot.adapterName == "slack"
           msgData = {
             channel: room
@@ -38,7 +36,6 @@ module.exports = (robot) ->
                 title: "Host Status Response",
                 title_link: "View Status",
                 text:  resp.formattedResponse(),
-                color: "#2eb886",
                 mrkdwn_in: ["text"]
               }
             ]
