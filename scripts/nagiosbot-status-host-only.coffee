@@ -12,8 +12,8 @@ utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
 livestatus = require("./livestatus.js")
 leftPad = require("left-pad")
-module.exports = (robot) ->
 smp = require("./status-message-parser.coffee")
+module.exports = (robot) ->
 
   # global status output
   robot.on "status:host", (messageObject, user, room) ->
