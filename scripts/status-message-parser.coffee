@@ -98,6 +98,7 @@ exports.StatusMessageParser = class StatusMessageParser
     ret = []
     for line in @splitResponse()
       tmp = new StatusMessageLineParser(line)
+      tmp.parse()
       ret.push(':dot_go-green: ' + tmp.hostName)
     ret.join("\n")
 
