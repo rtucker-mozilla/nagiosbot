@@ -98,6 +98,7 @@ exports.StatusMessageParser = class StatusMessageParser
     ret = []
     for line in @splitResponse()
       tmp = new StatusMessageLineParser(line)
+      tmp.parse()
       console.log(tmp.hostName)
       ret.push(tmp.hostName)
     ret.join("\n")
