@@ -12,6 +12,7 @@ statuses = {
     'Text': 'UNKNOWN'
   },
 }
+strftime = require('strftime')
 module.exports.parse = (message) ->
 
   # slack appends http:// in front of hostnames
@@ -121,4 +122,5 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     @statusText = statuses[@statusInt].Text
     @hostName = @segmentByDelimeter @line, ';', 0
     lastCheckedInt = @segmentByDelimeter @line, ';', 3
-    @lastChecked = new Date(lastCheckedInt).toUTCString()
+    lastCheckedInt = parseInt(lastCheckedInt)
+    @lastChecked =  strftime('%Y-%m-%d %H:%M:%S UTC', new Date(lastCheckedInt))
