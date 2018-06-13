@@ -100,7 +100,7 @@ exports.StatusMessageParser = class StatusMessageParser
       tmp = new StatusMessageLineParser(line)
       console.log(line)
       ret.push(tmp.hostName)
-    ret
+    ret.join("\n")
 
 exports.StatusMessageLineParser = class StatusMessageLineParser
   constructor: (@line) ->
