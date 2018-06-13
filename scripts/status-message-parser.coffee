@@ -100,8 +100,11 @@ exports.StatusMessageParser = class StatusMessageParser
       tmp = new StatusMessageLineParser(line)
       tmp.parse()
       addLine = "#{tmp.hostName}"
-      if process.ENV.HUBOT_OK_EMOJI
-        addLine = process.ENV.HUBOT_OK_EMOJI + ' ' + addLine
+      if process.env.HUBOT_OK_EMOJI
+        try
+          addLine = process.env.HUBOT_OK_EMOJI + ' ' + addLine
+        catch
+          continue
       ret.push(addLine)
     ret.join("\n")
 
