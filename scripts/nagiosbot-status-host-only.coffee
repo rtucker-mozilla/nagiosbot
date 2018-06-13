@@ -36,7 +36,7 @@ module.exports = (robot) ->
                 fallback: "Host Status Response",
                 title: "Host Status Response",
                 title_link: "View Status",
-                text:  resp.formattedResponse(),
+                text:  resp,
                 color: "#2eb886",
                 mrkdwn_in: ["text"]
               }
