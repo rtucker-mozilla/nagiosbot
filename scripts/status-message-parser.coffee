@@ -99,7 +99,10 @@ exports.StatusMessageParser = class StatusMessageParser
     for line in @splitResponse()
       tmp = new StatusMessageLineParser(line)
       tmp.parse()
-      ret.push(':dot_go-green: ' + tmp.hostName)
+      addLine = "#{tmp.hostName}"
+      if process.ENV.HUBOT_OK_EMOJI
+        addLine = process.ENV.HUBOT_OK_EMOJI + ' ' + addLine
+      ret.push(addLine)
     ret.join("\n")
 
 exports.StatusMessageLineParser = class StatusMessageLineParser
