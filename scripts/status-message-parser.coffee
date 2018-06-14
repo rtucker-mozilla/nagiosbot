@@ -33,6 +33,7 @@ module.exports.parse = (message) ->
   ret.hostOnly = false
   ret.hasService = false
   ret.serviceWildcard = false
+  ret.hostNameWildcard = false
   ret.emitCode = ""
   ret.message = message
   if message == "status"
@@ -43,6 +44,8 @@ module.exports.parse = (message) ->
   if match = message.match(serviceRegex)
     ret.hasService = true
     ret.hostName = match[1]
+    if ret.hostName.includes('\*')
+      ret.hostNameWildcard = true
     ret.serviceName = match[2]
     ret.emitCode = "status:service"
     if ret.serviceName == "*"
@@ -50,6 +53,8 @@ module.exports.parse = (message) ->
   else if match = message.match(hostOnlyRegex)
     ret.hostOnly = true
     ret.hostName = match[1].replace("http://", "")
+    if ret.hostName.includes('*')
+      ret.hostNameWildcard = true
     ret.emitCode = "status:host"
   return ret
 

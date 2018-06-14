@@ -23,9 +23,9 @@ module.exports = (robot) ->
         "Columns: host_name state plugin_output last_check service_acknowledged description",
         "Filter: description ~~ " + messageObject.serviceName
       ]
-      if messageObject.hostName != '*'
+      if messageObject.hostNameWildcard
         hostQueryArray.push(
-          "Filter: host_name ~ " + messageObject.hostName
+          "Filter: host_name ~~ " + messageObject.hostName
         )
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>

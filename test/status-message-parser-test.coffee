@@ -112,6 +112,16 @@ describe 'status-message-parser.parse', ->
     resp = parser.parse(message)
     expect(resp.emitCode).to.equal("status:service")
 
+  it 'sets hostNameWildcard with an asterisk only for hostname', ->
+    message = "status *:Ping"
+    resp = parser.parse(message)
+    expect(resp.hostNameWildcard).to.equal(true)
+
+  it 'sets hostNameWildcard with an asterisk', ->
+    message = "status *.domain.com:Ping"
+    resp = parser.parse(message)
+    expect(resp.hostNameWildcard).to.equal(true)
+
 describe 'status-message-parser.format_status_response', ->
   beforeEach ->
     @robot = {}
