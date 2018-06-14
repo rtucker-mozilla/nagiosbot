@@ -24,7 +24,7 @@ module.exports = (robot) ->
         "Filter: description ~~ " + messageObject.serviceName
       ]
       if messageObject.hostName != '*'
-        hostQueryArray.append(
+        hostQueryArray.push(
           "Filter: host_name ~ " + messageObject.hostName
         )
       hostQuery = hostQueryArray.join("\n") + "\n\n"
