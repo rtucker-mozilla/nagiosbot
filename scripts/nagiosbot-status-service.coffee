@@ -25,7 +25,7 @@ module.exports = (robot) ->
       ]
       if messageObject.hostNameWildcard
         hostQueryArray.push(
-          "Filter: host_name ~~ " + messageObject.hostName
+          "Filter: host_name ~~ " + messageObject.hostName.replace("*","")
         )
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>

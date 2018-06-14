@@ -44,7 +44,7 @@ module.exports.parse = (message) ->
   if match = message.match(serviceRegex)
     ret.hasService = true
     ret.hostName = match[1]
-    if ret.hostName.includes('\*')
+    if ret.hostName.includes('*')
       ret.hostNameWildcard = true
     ret.serviceName = match[2]
     ret.emitCode = "status:service"
