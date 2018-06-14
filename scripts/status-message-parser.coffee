@@ -99,7 +99,7 @@ exports.StatusMessageParser = class StatusMessageParser
     ret = []
     for line in @splitResponse()
       tmp = new StatusMessageLineParser(line)
-      ret.push(tmp.formatResponse())
+      ret.push(tmp.formattedResponse())
     ret.join("\n")
 
 exports.StatusMessageLineParser = class StatusMessageLineParser
