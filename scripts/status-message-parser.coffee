@@ -113,7 +113,7 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     addLine = "#{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
     if process.env.HUBOT_OK_EMOJI
       try
-        addLine = process.env['HUBOT_' + tmp.statusText + '_EMOJI'] + ' ' + addLine
+        addLine = process.env['HUBOT_' + @statusText + '_EMOJI'] + ' ' + addLine
       catch
     return addLine
 
