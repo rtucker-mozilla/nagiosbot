@@ -46,6 +46,10 @@ module.exports.parse = (message) ->
     ret.hostName = match[1]
     if ret.hostName.includes('*')
       ret.hostNameWildcard = true
+      if ret.hostName.startsWith('*')
+        ret.hostNameSearch = ret.hostName.replace(/^\*/,'')
+    else
+      ret.hostNameSearch = '^' + ret.hostName
     ret.serviceName = match[2]
     ret.emitCode = "status:service"
     if ret.serviceName == "*"
@@ -55,6 +59,8 @@ module.exports.parse = (message) ->
     ret.hostName = match[1].replace("http://", "")
     if ret.hostName.includes('*')
       ret.hostNameWildcard = true
+      if ret.hostName.startsWith('*')
+        ret.hostNameSearch = ret.hostName.replace(/^\*/,'')
     ret.emitCode = "status:host"
   return ret
 
