@@ -29,16 +29,20 @@ module.exports = (robot) ->
         hostResponse = data
         resp = new smp.StatusMessageParser(data)
         if robot.adapterName == "slack"
-          msgData = {
-            channel: room
-            attachments: [
-              {
-                fallback: "Service Status Response",
-                title: "Service Status Response",
-                title_link: "View Status",
-                text:  resp.formattedResponse(),
-                mrkdwn_in: ["text"]
-              }
-            ]
-          }
-          robot.messageRoom room, msgData
+          if data.length > 0
+            msgData = {
+              channel: room
+              attachments: [
+                {
+                  fallback: "Service Status Response",
+                  title: "Service Status Response",
+                  title_link: "View Status",
+                  text:  resp.formattedResponse(),
+                  mrkdwn_in: ["text"]
+                }
+              ]
+            }
+            robot.messageRoom room, msgData
+          else
+            robot.messageRoom room, "No Results Found"
+            
