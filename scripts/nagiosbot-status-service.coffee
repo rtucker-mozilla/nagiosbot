@@ -21,7 +21,7 @@ module.exports = (robot) ->
       hostQueryArray = [
         "GET services",
         "Columns: host_name state plugin_output last_check service_acknowledged description",
-        "Filter: description ~~ " + messageObject.serviceName,
+        "Filter: description ~~ " + messageObject.serviceNameSearch,
         "Filter: host_name ~~ " + messageObject.hostNameSearch
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"

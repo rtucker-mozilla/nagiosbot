@@ -117,10 +117,45 @@ describe 'status-message-parser.parse', ->
     resp = parser.parse(message)
     expect(resp.hostNameWildcard).to.equal(true)
 
-  it 'sets hostNameWildcard with an asterisk', ->
-    message = "status *.domain.com:Ping"
+  it 'sets hostnamewildcard with an asterisk', ->
+    message = "status *.domain.com:ping"
     resp = parser.parse(message)
     expect(resp.hostNameWildcard).to.equal(true)
+
+  it 'sets serviceWildcard with an asterisk', ->
+    message = "status *.domain.com:ping"
+    resp = parser.parse(message)
+    expect(resp.serviceWildcard).to.equal(false)
+
+  it 'sets hostNameSearch with an asterisk', ->
+    message = "status *.domain.com:ping"
+    resp = parser.parse(message)
+    expect(resp.hostNameSearch).to.equal('.domain.com$')
+
+  it 'sets serviceNameSearch without asterisk', ->
+    message = "status *.domain.com:Ping"
+    resp = parser.parse(message)
+    expect(resp.serviceNameSearch).to.equal('^Ping$')
+
+  it 'sets serviceName ending anchor with leading asterisk', ->
+    message = "status foo.domain.com:*Ping"
+    resp = parser.parse(message)
+    expect(resp.serviceNameSearch).to.equal('Ping$')
+
+  it 'sets serviceName ending anchor with trailing asterisk', ->
+    message = "status foo.domain.com:Ping*"
+    resp = parser.parse(message)
+    expect(resp.serviceNameSearch).to.equal('^Ping')
+
+  it 'sets serviceName starting and ending anchor without leading and trailing asterisk', ->
+    message = "status foo.domain.com:Ping"
+    resp = parser.parse(message)
+    expect(resp.serviceNameSearch).to.equal('^Ping$')
+
+  it 'removes serviceName starting and ending anchor with leading and trailing asterisk', ->
+    message = "status foo.domain.com:*Ping*"
+    resp = parser.parse(message)
+    expect(resp.serviceNameSearch).to.equal('Ping')
 
 describe 'status-message-parser.format_status_response', ->
   beforeEach ->

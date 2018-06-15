@@ -29,7 +29,9 @@ module.exports.parse = (message) ->
 
   ret = {}
   ret.hostName = ""
+  ret.hostNameSearch = ""
   ret.serviceName = ""
+  ret.serviceNameSearch = ""
   ret.hostOnly = false
   ret.hasService = false
   ret.serviceWildcard = false
@@ -48,9 +50,25 @@ module.exports.parse = (message) ->
       ret.hostNameWildcard = true
       if ret.hostName.startsWith('*')
         ret.hostNameSearch = ret.hostName.replace(/^\*/,'')
+      if !ret.hostName.endsWith('*')
+        ret.hostNameSearch = ret.hostNameSearch + '$'
     else
-      ret.hostNameSearch = '^' + ret.hostName
+      ret.hostNameSearch = '^' + ret.hostName + '$'
     ret.serviceName = match[2]
+
+    if ret.serviceName.includes('*')
+      ret.serviceNameWildcard = true
+      if ret.serviceName.startsWith('*')
+        ret.serviceNameSearch = ret.serviceName.replace(/^\*/,'')
+      else
+        ret.serviceNameSearch = '^' + ret.serviceName
+      if ret.serviceName.endsWith('*')
+        ret.serviceNameSearch = ret.serviceNameSearch.replace(/\*$/,'')
+      else
+        ret.serviceNameSearch = ret.serviceNameSearch + '$'
+    else
+      ret.serviceNameSearch = '^' + ret.serviceName + '$'
+     
     ret.emitCode = "status:service"
     if ret.serviceName == "*"
       ret.serviceWildcard = true
