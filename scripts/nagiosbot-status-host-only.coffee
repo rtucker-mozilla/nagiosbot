@@ -25,19 +25,21 @@ module.exports = (robot) ->
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
-        hostResponse = data
-        resp = new smp.StatusMessageParser(data)
-        if robot.adapterName == "slack"
-          msgData = {
-            channel: room
-            attachments: [
-              {
-                fallback: "Host Status Response",
-                title: "Host Status Response",
-                title_link: "View Status",
-                text:  resp.formattedResponse(),
-                mrkdwn_in: ["text"]
-              }
-            ]
-          }
-          robot.messageRoom room, msgData
+        if data
+          resp = new smp.StatusMessageParser(data)
+          if robot.adapterName == "slack"
+            msgData = {
+              channel: room
+              attachments: [
+                {
+                  fallback: "Host Status Response",
+                  title: "Host Status Response",
+                  title_link: "View Status",
+                  text:  resp.formattedResponse(),
+                  mrkdwn_in: ["text"]
+                }
+              ]
+            }
+            robot.messageRoom room, msgData
+          else
+            robot.messageRoom room, "No Results Found"
