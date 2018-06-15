@@ -1,18 +1,20 @@
 var net = require('net')
 module.exports.executeQuery = function(socketPath, query, cb){
     var client = net.createConnection(socketPath);
+    var data;
     client.on("connect",  function() {
         client.write(query, function(data){
         });
     });
     //client.destroy(); // kill client after server's response
-    client.on("data",  function(data) {
-        client.destroy(); // kill client after server's response
-        cb(data.toString());
+    //client.on("data",  function(data) {
+    client.on("data",  function(idata) {
+        //client.destroy(); // kill client after server's response
+        data = idata.toString();
     });
-    client.on("close",  function(data) {
+    client.on("close",  function() {
         client.destroy(); // kill client after server's response
-        cb();
+        cb(data);
     });
 };
 
