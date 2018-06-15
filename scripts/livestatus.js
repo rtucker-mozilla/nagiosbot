@@ -6,7 +6,7 @@ module.exports.executeQuery = function(socketPath, query, cb){
         });
     });
     //client.destroy(); // kill client after server's response
-    client.on("data",  function(data) {
+    client.on("close",  function(data) {
         client.destroy(); // kill client after server's response
         cb(data.toString());
     });
