@@ -30,8 +30,7 @@ module.exports = (robot) ->
         resp = new smp.StatusMessageParser(data)
         if robot.adapterName == "slack"
           console.log(data)
-          console.log(data.length)
-          if data.length > 0
+          if data
             msgData = {
               channel: room
               attachments: [
