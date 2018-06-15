@@ -29,6 +29,8 @@ module.exports = (robot) ->
         hostResponse = data
         resp = new smp.StatusMessageParser(data)
         if robot.adapterName == "slack"
+          console.log(data)
+          console.log(data.length)
           if data.length > 0
             msgData = {
               channel: room
