@@ -1,8 +1,8 @@
 language: node_js
 node_js:
-      - "v7.2.1"
+  - "v7.2.1"
 before_script:
-     — npm install --only=dev
-     — npm install
+  — npm install --only=dev
+  — npm install
 script:
-     — make test
+  — make test
