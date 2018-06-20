@@ -27,5 +27,11 @@ module.exports = (robot) ->
     messageText = utils.removeName(robot, msg.message.text)
     room = msg.envelope.room
     if utils.actionIndex("status", messageText) == 0
+      shouldPullObjectFromBrain = smp.shouldGetFromBrain(messageText)
+      if shouldPullObjectFromBrain
+        notificationId = smp.notificationIdFromMessage(messageText)
+        notificationObject = robot.brain.get(notificationId)
+        if notificationObject.notificationType == 'HOST'
+          messageText = "status #{notificationObject.hostName}"
       statusMessageObject = smp.parse(messageText)
       robot.emit statusMessageObject.emitCode, statusMessageObject, user, room

@@ -245,10 +245,26 @@ describe 'status-message-parser.format_status_response', ->
     properServiceName = 'PING OK - Packet loss = 0%, RTA = 68.23 ms'
     expect(smlp.serviceDescription).to.equal(properServiceName)
 
-  it 'class StatusMessageLineParser outputs proper formattedResponse for OK status', ->
-    livestatusResponse = fs.readFileSync "test/fixtures/hostresponse", 'utf8'
-    lines = parser.splitResponse livestatusResponse
-    smlp = new parser.StatusMessageLineParser(lines[0])
-    lineOut = smlp.formattedResponse()
-    properLineOut = 'access01.df501-1.vlan.loc2.domain.net is OK - PING OK - Packet loss = 0%, RTA = 68.23 ms - Last Checked 2018-05-08 10:54:40 UTC'
-    expect(lineOut).to.equal(properLineOut)
+  it 'shouldGetFromBrain returns for integer only match to pull from brain', ->
+    message = "@nagiosbot status 12345"
+    response = parser.shouldGetFromBrain(message)
+    properResponse = true
+    expect(response).to.equal(properResponse)
+
+  it 'shouldGetFromBrain returns false for noninteger only match to pull from brain', ->
+    message = "@nagiosbot status foo.bar.domain.com:*"
+    response = parser.shouldGetFromBrain(message)
+    properResponse = false
+    expect(response).to.equal(properResponse)
+
+  it 'notificationIdFromMessage returns proper integer from message', ->
+    message = "@nagiosbot status 12345"
+    response = parser.notificationIdFromMessage(message)
+    properResponse = 12345
+    expect(response).to.equal(properResponse)
+
+  it 'notificationIdFromMessage returns null when lacking integer from message', ->
+    message = "@nagiosbot status asdf"
+    response = parser.notificationIdFromMessage(message)
+    properResponse = null
+    expect(response).to.equal(properResponse)

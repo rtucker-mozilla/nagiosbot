@@ -11,5 +11,4 @@
 module.exports = (robot) ->
   robot.respond /status/i, (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
-    console.log(msg.message.text)
     robot.emit "status", msg, user.name

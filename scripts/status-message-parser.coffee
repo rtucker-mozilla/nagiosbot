@@ -15,8 +15,19 @@ statuses = {
     'Text': 'UNKNOWN'
   },
 }
-module.exports.parse = (message) ->
+module.exports.notificationIdFromMessage = (message) ->
+  match = message.match(/status\s+(\d+)/)
+  if match
+    return parseInt(match[1])
+  return null
 
+module.exports.shouldGetFromBrain = (message) ->
+  if message.match(/status\s+\d+/)
+    return true
+  else
+    return false
+
+module.exports.fixHostnames = (message) ->
   # slack appends http:// in front of hostnames
   # work around it
 
@@ -28,6 +39,11 @@ module.exports.parse = (message) ->
     message = message.replace(/status\s+\*http\:\/\//, "status *")
   else
     message = message.replace("status http://", "status ")
+  return message
+
+module.exports.parse = (message) ->
+  message = module.exports.fixHostnames(message)
+
 
   ret = {}
   ret.hostName = ""
@@ -155,8 +171,5 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     @statusText = statuses[@statusInt].Text
     @hostName = @segmentByDelimeter @line, ';', 0
     lastCheckedInt = @segmentByDelimeter @line, ';', 3
-
-    jsLastCheckedInt = parseInt(lastCheckedInt)
-    console.log("INT IS: " + jsLastCheckedInt)
-    @lastChecked = moment.unix(jsLastCheckedInt).utc().format('YYYY-MM-DD HH:mm:ss UTC')
-    # @lastChecked =  strftime('%Y-%m-%d %H:%M:%S UTC', new Date(Date.UTC(jsLastCheckedInt)))
+    lastCheckedInt = parseInt(lastCheckedInt)
+    @lastChecked = moment.unix(lastCheckedInt).utc().format('YYYY-MM-DD HH:mm:ss UTC')
