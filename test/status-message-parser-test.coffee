@@ -250,5 +250,5 @@ describe 'status-message-parser.format_status_response', ->
     lines = parser.splitResponse livestatusResponse
     smlp = new parser.StatusMessageLineParser(lines[0])
     lineOut = smlp.formattedResponse()
-    properLineOut = 'access01.df501-1.vlan.loc2.domain.net is OK - PING OK - Packet loss = 0%, RTA = 68.23 ms - Last Checked 2018-05-08 06:54:40 UTC'
+    properLineOut = 'access01.df501-1.vlan.loc2.domain.net is OK - PING OK - Packet loss = 0%, RTA = 68.23 ms - Last Checked 2018-05-08 10:54:40 UTC'
     expect(lineOut).to.equal(properLineOut)
