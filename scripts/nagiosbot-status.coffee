@@ -31,7 +31,13 @@ module.exports = (robot) ->
       if shouldPullObjectFromBrain
         notificationId = smp.notificationIdFromMessage(messageText)
         notificationObject = robot.brain.get(notificationId)
-        if notificationObject.notificationType == 'HOST'
-          messageText = "status #{notificationObject.hostName}"
-      statusMessageObject = smp.parse(messageText)
-      robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
+        if notificationObject != null
+          if notificationObject.notificationType == 'HOST'
+            messageText = "status #{notificationObject.hostName}"
+            statusMessageObject = smp.parse(messageText)
+            robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
+        else
+            robot.messageRoom room, "Unable to lookup notification by index"
+      else
+        statusMessageObject = smp.parse(messageText)
+        robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
