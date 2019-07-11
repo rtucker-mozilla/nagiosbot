@@ -1,0 +1,2 @@
+host1.domain.com;0;PING OK - Packet loss = 0%, RTA = 0.46 ms;1545319709;0;10.0.0.1
+host2.domain.com;0;PING OK - Packet loss = 0%, RTA = 6.52 ms;1551831866;0;10.0.0.2
