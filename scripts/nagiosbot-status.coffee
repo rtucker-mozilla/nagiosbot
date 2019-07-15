@@ -10,7 +10,6 @@
 
 utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
-livestatus = require("./livestatus.js")
 smp = require("./status-message-parser.coffee")
 
 module.exports = (robot) ->
