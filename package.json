@@ -5,6 +5,7 @@
   "author": "Rob Tucker <rtucker@mozilla.com>",
   "description": "Testing Nagios Bot",
   "dependencies": {
+    "always-tail": "^0.2.0",
     "chai": "^4.2.0",
     "coffee": "^5.1.0",
     "coffee-script": "^1.12.7",
