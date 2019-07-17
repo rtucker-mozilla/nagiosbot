@@ -11,13 +11,19 @@ var Tail = require('always-tail');
 var fs = require('fs');
 var utils = require('./utils')
 var filename = utils.logFilePath()
+const axios = require('axios');
 
 if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
 
 var tail = new Tail(filename, '\n');
+var url = utils.hubotURL();
 
-tail.on('line', function(data) {
-  console.log("got line:", data);
+tail.on('line', function(line) {
+    if(utils.shouldPostLine(line)){
+        axios.post(url, {line: line}).catch((error) => {
+            console.log(error.code)
+        })
+    }
 });
 
 
