@@ -22,10 +22,6 @@ describe 'hello-world', ->
 
     it 'should reply to user', ->
       response = "```bob: Hosts Total/Hosts Up/Hosts Warning/Hosts Down\n               2/       2/            0/         0\n  Services Total/      Up/      Warning/      Down\n               2/       2/            0/         0\n```"
-      console.dir(@robot)
-      console.dir(@room)
-      console.log(@room.messages)
-      console.log(@room.privateMessages)
       expect(@room.messages).to.eql [
         ['bob',   'hubot status']
         ['hubot', response]
