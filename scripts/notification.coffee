@@ -13,6 +13,14 @@ exports.Notification = class Notification
   parse: ->
     hostOrServiceRe = /^\[\d+\]\s(SERVICE|HOST)\sNOTIFICATION:.*/
     hostOrServiceMatches = @line.match(hostOrServiceRe)
+    processNotificationChannels = process.env.HUBOT_NOTIFICATION_CHANNELS || ""
+    tmp = {}
+    for element in processNotificationChannels.split(";")
+      name = element.split(":")[0] || ""
+      value = element.split(":")[1] || ""
+      tmp[name] = value
+    @notificationChannels = tmp
+
     if hostOrServiceMatches[1] == 'HOST'
       matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
       matches = @line.match(matchRe)
@@ -35,3 +43,5 @@ exports.Notification = class Notification
       @notificationLevel = matches[6]
       @notificationAction = matches[7]
       @message = matches[8]
+
+    @notificationChannel = @notificationChannels[@notificationDestination] || @notificationDestination
