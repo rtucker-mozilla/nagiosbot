@@ -30,6 +30,8 @@ module.exports.livestatusServicesDownCount = (data) ->
   return module.exports.countByColumnIndex(data,SERVICE_STATUS_COLUMN_INDEX,DOWN_INT)
 
 module.exports.countLines = (data) ->
+  if !data
+    return
   # one option is to just take the length of the a
   # it is also possible that we should loop over and count
   # based on some criteria
