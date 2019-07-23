@@ -43,6 +43,8 @@ module.exports.countLines = (data) ->
   return counter
 
 module.exports.countByColumnIndex = (data, index, properValue) ->
+  if !data
+    return
   counter = 0
   for line in data.split("\n")
     if line == ""
