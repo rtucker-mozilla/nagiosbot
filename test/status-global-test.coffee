@@ -21,7 +21,7 @@ describe 'hello-world', ->
         yield @room.user.say 'bob', 'hubot status'
 
     it 'should reply to user', ->
-      response = "```bob: Hosts Total/Hosts Up/Hosts Warning/Hosts Down\n               2/       2/            0/         0\n  Services Total/      Up/      Warning/      Down\n               2/       2/            0/         0\n```"
+      response = "```@bob: Hosts Total/Hosts Up/Hosts Warning/Hosts Down\n               2/       2/            0/         0\n  Services Total/      Up/      Warning/      Down\n               2/       2/            0/         0\n```"
       expect(@room.messages).to.eql [
         ['bob',   'hubot status']
         ['hubot', response]

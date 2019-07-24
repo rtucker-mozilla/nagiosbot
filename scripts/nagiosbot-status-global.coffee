@@ -23,7 +23,7 @@ outputResponse = (robot, messageObject, user, room, hostResponse, serviceRespons
   servicesWarning = ss.livestatusServicesWarningCount(serviceResponse)
   servicesDown = ss.livestatusServicesDownCount(serviceResponse)
 
-  paddingLength = user.length + 2
+  paddingLength = user.length
   hostsHeader = [
     "Hosts Total",
     "Hosts Up",
@@ -37,9 +37,9 @@ outputResponse = (robot, messageObject, user, room, hostResponse, serviceRespons
     "      Down",
   ]
   message = "@#{user}: " + hostsHeader.join("/") + "\n"
-  message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
-  message = message + " ".repeat(paddingLength - 3) + servicesHeader.join("/") + "\n"
-  message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(servicesHeader[0],totalServices, offset=-3)}/#{utils.padToMatchLength(servicesHeader[1],servicesUp)}/#{utils.padToMatchLength(servicesHeader[2], servicesWarning)}/#{utils.padToMatchLength(servicesHeader[3], servicesDown)}\n"
+  message = message + " ".repeat(paddingLength + 2) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
+  message = message + " ".repeat(paddingLength - 1) + servicesHeader.join("/") + "\n"
+  message = message + " ".repeat(paddingLength + 2) + "#{utils.padToMatchLength(servicesHeader[0],totalServices, offset=-3)}/#{utils.padToMatchLength(servicesHeader[1],servicesUp)}/#{utils.padToMatchLength(servicesHeader[2], servicesWarning)}/#{utils.padToMatchLength(servicesHeader[3], servicesDown)}\n"
   if room != "Shell"
     message = "```" + message + "```"
   robot.messageRoom room, message
