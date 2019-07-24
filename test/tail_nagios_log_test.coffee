@@ -31,12 +31,15 @@ describe 'tail_nagios_log utils', ->
 
   it 'host notification should not post for invvalid line', ->
     line = "[1563240990] Blah Blah: notificationgroup;host.domain.com;DOWN;host-notify-by-email;PING CRITICAL - Packet loss = 100%"
-    expect(utils.shouldPostLine(line)).to.equal(false)
+    expect(utils.shouldPostLine(line).value).to.equal(false)
+    expect(utils.shouldPostLine(line).endpoint).to.equal("")
 
   it 'host notification should post for valid HOST NOTIFICATION line', ->
     line = "[1563240990] HOST NOTIFICATION: notificationgroup;host.domain.com;DOWN;host-notify-by-email;PING CRITICAL - Packet loss = 100%"
-    expect(utils.shouldPostLine(line)).to.equal(true)
+    expect(utils.shouldPostLine(line).value).to.equal(true)
+    expect(utils.shouldPostLine(line).endpoint).to.equal("notification")
 
   it 'host notification should post for valid SERVICE NOTIFICATION line', ->
     line = "[1563240990] SERVICE NOTIFICATION: notificationgroup;host.domain.com;DOWN;host-notify-by-email;PING CRITICAL - Packet loss = 100%"
-    expect(utils.shouldPostLine(line)).to.equal(true)
+    expect(utils.shouldPostLine(line).value).to.equal(true)
+    expect(utils.shouldPostLine(line).endpoint).to.equal("notification")
