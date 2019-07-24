@@ -13,18 +13,22 @@ notificationIndex = require '../scripts/notification-index.coffee'
 module.exports = (robot) ->
 
   # global status output
-  robot.router.post "/notification/create", (request, res) ->
+  robot.router.post "/notification", (request, res) ->
     # @TODO: Need to pull room mapping from json config file
     room = "#nagiosbot"
     payload = request.body.payload
     start = process.env.HUBOT_INDEX_START || 1000
     width = process.env.HUBOT_INDEX_WIDTH || 100
     ni = new notificationIndex.NotificationIndex(robot, start, width)
-    n = new notification.Notification(payload)
+    n = new notification.Notification(payload.line)
     n.parse()
     nextIndex = ni.getNextIndex()
     msg = n.getMessage(nextIndex)
-    robot.messageRoom room, msg
+    if data.raw
+      robot.messageRoom n.notificationChannel, payload.line
+    else
+      robot.messageRoom n.notificationChannel, msg
     ni.set(n)
     console.log("From Brain: " + robot.brain.get('1000'))
     res.end "Notification Received: " + nextIndex
+    response.send 'OK'
