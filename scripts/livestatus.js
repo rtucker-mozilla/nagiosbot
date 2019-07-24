@@ -10,7 +10,7 @@ module.exports.executeQuery = function(socketPath, query, cb){
     //client.on("data",  function(data) {
     client.on("data",  function(idata) {
         //client.destroy(); // kill client after server's response
-        data = idata.toString();
+        data = idata.toString().trim();
     });
     client.on("close",  function() {
         client.destroy(); // kill client after server's response

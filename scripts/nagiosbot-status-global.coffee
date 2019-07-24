@@ -51,8 +51,8 @@ module.exports = (robot) ->
   robot.on "status:global", (messageObject, user, room) ->
     if process.env.HUBOT_MOCK_MKLIVE_STATUS=="true"
       filename_from_message = messageObject.message.replace /[]/, "_"
-      hostResponse = fs.readFileSync('./mocks/status_hosts').toString()
-      serviceResponse = fs.readFileSync('./mocks/status_services').toString()
+      hostResponse = fs.readFileSync('./mocks/status_hosts').toString().trim()
+      serviceResponse = fs.readFileSync('./mocks/status_services').toString().trim()
       outputResponse robot, messageObject, user, room, hostResponse, serviceResponse
     else if process.env.HUBOT_USE_MKLIVE_STATUS=="true"
       hostQuery = "GET hosts\nColumns: host_name state plugin_output last_check host_acknowledged address\n\n"
