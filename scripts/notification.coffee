@@ -1,6 +1,12 @@
 parser = require '../scripts/status-message-parser.coffee'
 util = require 'util'
 
+statusClassificationEmoji = {
+  "DOWN": ":dot_go-green:",
+  "DOWNTIMESTART (UP)": ":dot_go-green:",
+  "UP": ":dot_moz-red:",
+}
+
 exports.Notification = class Notification
   constructor: (@line) ->
 
@@ -31,13 +37,7 @@ exports.Notification = class Notification
       @serviceName = matches[5]
       @notificationAction = matches[6]
       @message = matches[7]
-      if @serviceName == 'DOWN'
-        @emoji = ':dot_moz-red:'
-      else if @serviceName == 'UP'
-        @emoji = ':dot_go-green:'
-      else
-        @emoji = ''
-
+      @emoji = statusClassificationEmoji[@serviceName]
     else
       matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
       matches = @line.match(matchRe)
@@ -49,5 +49,6 @@ exports.Notification = class Notification
       @notificationLevel = matches[6]
       @notificationAction = matches[7]
       @message = matches[8]
+      @emoji = statusClassificationEmoji[@serviceName]
 
     @notificationChannel = @notificationChannels[@notificationDestination] || @notificationDestination
