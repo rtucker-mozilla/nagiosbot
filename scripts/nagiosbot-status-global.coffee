@@ -36,7 +36,7 @@ outputResponse = (robot, messageObject, user, room, hostResponse, serviceRespons
     "      Warning",
     "      Down",
   ]
-  message = "#{user}: " + hostsHeader.join("/") + "\n"
+  message = "@#{user}: " + hostsHeader.join("/") + "\n"
   message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(hostsHeader[0],totalHosts)}/#{utils.padToMatchLength(hostsHeader[1],hostsUp)}/#{utils.padToMatchLength(hostsHeader[2], hostsWarning)}/#{utils.padToMatchLength(hostsHeader[3], hostsDown)}\n"
   message = message + " ".repeat(paddingLength - 3) + servicesHeader.join("/") + "\n"
   message = message + " ".repeat(paddingLength) + "#{utils.padToMatchLength(servicesHeader[0],totalServices, offset=-3)}/#{utils.padToMatchLength(servicesHeader[1],servicesUp)}/#{utils.padToMatchLength(servicesHeader[2], servicesWarning)}/#{utils.padToMatchLength(servicesHeader[3], servicesDown)}\n"
