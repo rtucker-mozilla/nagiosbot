@@ -10,7 +10,7 @@ fs = require('fs')
 process.env.EXPRESS_PORT = 8080;
 process.env.NOTIFICATION_CHANNELS = "irc:irconly;sysalerts:sysadmins"
 
-describe 'logifle post for HOST NOTIFICATION message goes to proper room', ->
+describe 'logfile post for HOST NOTIFICATION message goes to proper room', ->
   beforeEach ->
     @robot = {}
     @robot.name = "nagiosbot"
@@ -27,7 +27,7 @@ describe 'logifle post for HOST NOTIFICATION message goes to proper room', ->
       line: line,
       raw: true
     }
-    axios.post("http://127.0.0.1:8080/nagioslog/notification", data).then (resp) ->
+    axios.post("http://127.0.0.1:8080/notification", data).then (resp) ->
       expect(room.messages).to.eql [
         ['hubot', data.line]
       ]

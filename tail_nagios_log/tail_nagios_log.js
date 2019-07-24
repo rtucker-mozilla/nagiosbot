@@ -19,8 +19,9 @@ var tail = new Tail(filename, '\n');
 var url = utils.hubotURL();
 
 tail.on('line', function(line) {
-    if(utils.shouldPostLine(line)){
-        axios.post(url, {line: line}).catch((error) => {
+    var shouldPostResponse = utils.shouldPostLine(line);
+    if(shouldPostResponse.value){
+        axios.post(url + '/' + shouldPostResponse.endpoint, {line: line}).catch((error) => {
             console.log(error.code)
         })
     }
