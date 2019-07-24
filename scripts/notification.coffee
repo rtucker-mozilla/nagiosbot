@@ -8,13 +8,7 @@ exports.Notification = class Notification
     return input.split(delimeter)[index]
 
   getMessage: (index) ->
-    if @notificationLevel == 'DOWN'
-      emoji = ':dot_go-red:'
-    else if @notificationLevel == 'UP'
-      emoji = ':dot_go-green:'
-    else
-      emoji = ':dot_go-green:'
-    return util.format('%s [%d] [%s] %s is %s: %s', emoji, index, @notificationDestination, @hostName, @serviceName, @message)
+    return util.format('%s [%d] [%s] %s is %s: %s', @emoji, index, @notificationDestination, @hostName, @serviceName, @message)
 
   parse: ->
     hostOrServiceRe = /^\[\d+\]\s(SERVICE|HOST)\sNOTIFICATION:.*/
@@ -37,6 +31,12 @@ exports.Notification = class Notification
       @serviceName = matches[5]
       @notificationAction = matches[6]
       @message = matches[7]
+    if @serviceName == 'DOWN'
+      emoji = ':dot_go-red:'
+    else if @serviceName == 'UP'
+      emoji = ':dot_go-green:'
+    else
+      emoji = ''
 
     else
       matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
