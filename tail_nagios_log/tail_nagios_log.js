@@ -9,8 +9,8 @@
 
 var Tail = require('always-tail');
 var fs = require('fs');
-var utils = require('./utils')
-var filename = utils.logFilePath()
+var utils = require('./utils');
+var filename = utils.logFilePath();
 const axios = require('axios');
 
 if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
