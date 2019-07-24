@@ -8,8 +8,7 @@ function hubotURL(){
 
 postLines = new Array(
     /^\[\d+\] HOST NOTIFICATION:/,
-    /^\[\d+\] SERVICE NOTIFICATION:/,
-
+    /^\[\d+\] SERVICE NOTIFICATION:/
 )
 
 
