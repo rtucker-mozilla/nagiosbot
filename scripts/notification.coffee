@@ -32,7 +32,7 @@ exports.Notification = class Notification
       @notificationAction = matches[6]
       @message = matches[7]
       if @serviceName == 'DOWN'
-        @emoji = ':dot_go-red:'
+        @emoji = ':dot_moz-red:'
       else if @serviceName == 'UP'
         @emoji = ':dot_go-green:'
       else
