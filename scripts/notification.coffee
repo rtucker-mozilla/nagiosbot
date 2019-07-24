@@ -1,5 +1,6 @@
 parser = require '../scripts/status-message-parser.coffee'
 util = require 'util'
+moment = require 'moment'
 
 statusClassificationEmoji = {
   "DOWN": ":dot_go-green:",
@@ -13,8 +14,12 @@ exports.Notification = class Notification
   segmentByDelimeter: (input, delimeter, index) ->
     return input.split(delimeter)[index]
 
+  formatDate: (timestamp) ->
+    dateObj = moment(timestamp * 1000)
+    return dateObj.format('ddd HH:mm:ss UTC')
+
   getMessage: (index) ->
-    return util.format('%s [%d] [%s] %s is %s: %s', @emoji, index, @notificationDestination, @hostName, @serviceName, @message)
+    return util.format('%s %s [%d] [%s] %s is %s: %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @serviceName, @message)
 
   parse: ->
     hostOrServiceRe = /^\[\d+\]\s(SERVICE|HOST)\sNOTIFICATION:.*/
@@ -38,6 +43,8 @@ exports.Notification = class Notification
       @notificationAction = matches[6]
       @message = matches[7]
       @emoji = statusClassificationEmoji[@serviceName]
+      @dateFormat = this.formatDate(@timestamp)
+
     else
       matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
       matches = @line.match(matchRe)
@@ -50,5 +57,6 @@ exports.Notification = class Notification
       @notificationAction = matches[7]
       @message = matches[8]
       @emoji = statusClassificationEmoji[@serviceName]
+      @dateFormat = this.formatDate(@timestamp)
 
     @notificationChannel = @notificationChannels[@notificationDestination] || @notificationDestination
