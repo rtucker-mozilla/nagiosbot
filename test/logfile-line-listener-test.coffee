@@ -4,7 +4,7 @@ axios = require('axios');
 
 expect = chai.expect
 
-helper = new Helper('../scripts/logfile-line-listener.coffee')
+helper = new Helper('../scripts/router-notification.coffee')
 ls = require '../scripts/livestatus.js'
 fs = require('fs')
 process.env.EXPRESS_PORT = 8080;
