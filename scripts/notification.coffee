@@ -9,11 +9,11 @@ exports.Notification = class Notification
 
   getMessage: (index) ->
     if @notificationLevel == 'DOWN'
-      emoji = ':dot_go-red'
+      emoji = ':dot_go-red:'
     else if @notificationLevel == 'UP'
-      emoji = ':dot_go-green'
+      emoji = ':dot_go-green:'
     else
-      emoji = ':dot_go-green'
+      emoji = ':dot_go-green:'
     return util.format('%s [%d] [%s] %s is %s: %s', emoji, index, @notificationDestination, @hostName, @serviceName, @message)
 
   parse: ->
