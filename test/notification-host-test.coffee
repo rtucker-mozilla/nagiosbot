@@ -7,16 +7,17 @@ helper = new Helper('../scripts/nagiosbot-dispatch.coffee')
 notification = require '../scripts/notification.coffee'
 fs = require 'fs'
 
-process.env.HUBOT_NOTIFICATION_CHANNELS = "irc:irconly;sysalerts:sysadmins"
 
 describe 'HOST notification', ->
   beforeEach ->
+    process.env.HUBOT_NOTIFICATION_CHANNELS = "irc:irconly;sysalerts:sysadmins"
     @robot = {}
     @robot.name = "nagiosbot"
     @room = helper.createRoom()
 
   afterEach ->
     @room.destroy()
+    delete process.env.HUBOT_NOTIFICATION_CHANNELS
 
   it 'extracts timestamp', ->
     line = "[1529310603] HOST NOTIFICATION: irc;reviewboard1.webapp.scl3.mozilla.com;DOWNTIMESTART (UP);host-notify-by-email;PING OK - Packet loss = 0%, RTA = 0.92 ms"

@@ -7,11 +7,10 @@ expect = chai.expect
 helper = new Helper('../scripts/router-notification.coffee')
 ls = require '../scripts/livestatus.js'
 fs = require('fs')
-process.env.EXPRESS_PORT = 8080;
-process.env.NOTIFICATION_CHANNELS = "irc:irconly;sysalerts:sysadmins"
 
 describe 'logfile post for HOST NOTIFICATION message goes to proper room', ->
   beforeEach ->
+    process.env.HUBOT_NOTIFICATION_CHANNELS = "irc:irconly;sysalerts:sysadmins"
     @robot = {}
     @robot.name = "nagiosbot"
     @room = helper.createRoom()
@@ -19,6 +18,7 @@ describe 'logfile post for HOST NOTIFICATION message goes to proper room', ->
 
   afterEach ->
     @room.destroy()
+    delete process.env.HUBOT_NOTIFICATION_CHANNELS
 
   it 'message ends up in room when posting line and raw is true', ->
     room = @room
