@@ -3,9 +3,10 @@ util = require 'util'
 moment = require 'moment'
 
 statusClassificationEmoji = {
-  "DOWN": ":dot_go-green:",
+  "UP": ":dot_go-green:",
   "DOWNTIMESTART (UP)": ":dot_go-green:",
-  "UP": ":dot_moz-red:",
+  "DOWNTIMEEND (UP)": ":dot_go-green:",
+  "DOWN": ":dot_moz-red:",
 }
 
 exports.Notification = class Notification

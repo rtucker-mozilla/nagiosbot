@@ -15,7 +15,6 @@ module.exports = (robot) ->
   # global status output
   robot.router.post "/notification", (request, res) ->
     # @TODO: Need to pull room mapping from json config file
-    room = "#nagiosbot"
     data   = if request.body.payload? then JSON.parse request.body.payload else request.body
     start = process.env.HUBOT_INDEX_START || 1000
     width = process.env.HUBOT_INDEX_WIDTH || 100
@@ -29,6 +28,4 @@ module.exports = (robot) ->
     else
       robot.messageRoom n.notificationChannel, msg
     ni.set(n)
-    console.log("From Brain: " + robot.brain.get('1000'))
-    res.end "Notification Received: " + nextIndex
-    response.send 'OK'
+    res.send 'OK'
