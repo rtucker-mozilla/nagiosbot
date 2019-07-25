@@ -9,7 +9,7 @@ statusClassificationEmoji = {
   "DOWN": ":dot_moz-red:",
 }
 
-class Command
+module.exports.Command = class Command
   constructor: (@commandArray) ->
     @command_file = process.env.HUBOT_NAGIOS_COMMAND_PATH || '/var/log/nagios/rw/nagios.cmd'
     @commandString = ""
@@ -17,7 +17,7 @@ class Command
   buildCommandString: () ->
     @commandString = @commandArray.join(" ")
     return @commandString
-
-module.exports = {
-  Command
-}
+  
+  write: () ->
+    wstream = fs.createWriteStream(@command_file)
+    return wstream.createWriteStream(@commandString)
