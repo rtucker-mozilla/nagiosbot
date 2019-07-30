@@ -17,7 +17,10 @@ command = require('./command.coffee')
 module.exports = (robot) ->
   robot.respond /.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
-    cd = new commandDowntime.CommandDowntime(msg.match, user.id)
+    tmp = msg.match
+    tmp[1] = tmp[1].replace(/http\:\/\//,"")
+
+    cd = new commandDowntime.CommandDowntime(tmp, user.id)
     cd.interpolate()
     msg.reply "match #{msg.match}"
     msg.reply "Downtime for #{msg.match[1]} scheduled for 1 day"
