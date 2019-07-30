@@ -8,7 +8,7 @@ module.exports.Command = class Command
       @finalCommandString = "[" + moment().unix() + "]" + @commandString + "\n"
     try 
       wstream = fs.createWriteStream(@command_file)
+      wstream.write(@finalCommandString)
     finally
       return
     
-    wstream.write(@finalCommandString)
