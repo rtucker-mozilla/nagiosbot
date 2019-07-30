@@ -19,7 +19,7 @@ module.exports = (robot) ->
     user = robot.brain.userForId msg.envelope.user.id
     cd = new commandDowntime.CommandDowntime(msg.match, user.id)
     cd.interpolate()
-    cmd.execute()
     msg.reply "match #{msg.match}"
     msg.reply "Downtime for #{msg.match[1]} scheduled for 1 day"
     cmd = new command.Command(cd.commandString)
+    cmd.execute()
