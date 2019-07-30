@@ -1,5 +1,4 @@
 moment = require('moment');
-cmd = require('./cmd.coffee')
 
 class CommandBaseClass
   getTimestamp: () ->
