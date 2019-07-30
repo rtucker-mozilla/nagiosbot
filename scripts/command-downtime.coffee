@@ -1,7 +1,7 @@
 moment = require('moment');
-command = require('../scripts/command.coffee')
+cmd = require('./cmd.coffee')
 
-class CommandBaseClass 
+class CommandBaseClass
   getTimestamp: () ->
     return moment().unix()
 
