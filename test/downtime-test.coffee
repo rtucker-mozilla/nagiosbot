@@ -20,12 +20,6 @@ describe 'downtime', ->
       co =>
         yield @room.user.say 'bob', '@hubot: downtime host.domain.com 1d message here'
 
-    it 'should reply to user', ->
-      response = "@bob Downtime for host.domain.com scheduled for 1 day"
-      expect(@room.messages).to.eql [
-        ['bob',   '@hubot: downtime host.domain.com 1d message here']
-        ['hubot', response]
-      ]
 
   context 'downtime all services by hostname with wildcard', ->
     beforeEach ->
@@ -77,11 +71,6 @@ describe 'downtime', ->
       m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
-      console.log "COMMAND ARRAY"
-      console.log cd.commandArray
-      console.log "MATCH ARRAY"
-      console.log m
-      console.log cd.duration
       expect(cd.commandArray[4].match(/\d+/)).to.not.be.null
       
     it 'extractDuration 1d', ->

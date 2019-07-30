@@ -1,8 +1,14 @@
 moment = require('moment')
 fs = require("fs")
+
 module.exports.Command = class Command
   constructor: (@commandString) ->
-    @command_file = process.env.HUBOT_NAGIOS_COMMAND_PATH || '/var/log/nagios/rw/nagios.cmd'
+    if process.env.HUBOT_NAGIOS_COMMAND_PATH
+      @command_file = process.env.HUBOT_NAGIOS_COMMAND_PATH
+    else
+      @command_file = '/var/log/nagios/rw/nagios.cmd'
+
+
 
   execute: () ->
       @finalCommandString = "[" + moment().unix() + "]" + @commandString + "\n"
@@ -11,4 +17,3 @@ module.exports.Command = class Command
       wstream.write(@finalCommandString)
     finally
       return
-    
