@@ -1,7 +1,7 @@
 moment = require('moment')
 fs = require("fs")
 
-module.exports.cmd = class Command
+module.exports.Command = class Command
   constructor: (@commandString) ->
     if process.env.HUBOT_NAGIOS_COMMAND_PATH
       @command_file = process.env.HUBOT_NAGIOS_COMMAND_PATH
