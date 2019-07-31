@@ -17,6 +17,7 @@ module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
     @commandArray = []
     @hostname = @fixHostname(@match[1])
     @downtimeInterval = ""
+    console.log(@match)
     if @match[2]?
       @verb = "SCHEDULE_SVC_DOWNTIME"
     else
