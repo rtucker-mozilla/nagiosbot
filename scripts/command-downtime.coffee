@@ -24,7 +24,7 @@ module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
       @verb = "SCHEDULE_HOST_DOWNTIME"
 
   extractDuration: (inputDuration) ->
-    console.log(inputDuration)
+    console.log("inputDuration: " + inputDuration)
     m = inputDuration.match(/^(\d+)([hdms])/)
     retVal = 0
     switch m[2]
