@@ -24,5 +24,5 @@ module.exports = (robot) ->
     cd.interpolate()
     msg.reply "match #{tmp}"
     msg.reply "Downtime for #{tmp[1]} scheduled for 1 day"
-    cmd = new cmd.Command(cd.commandString)
-    cmd.execute()
+    command = new cmd.Command(cd.commandString)
+    command.execute()
