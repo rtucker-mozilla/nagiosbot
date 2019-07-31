@@ -18,21 +18,21 @@ module.exports = (robot) ->
   # global status output
   robot.on "status:host", (messageObject, user, room) ->
     if process.env.HUBOT_USE_MKLIVE_STATUS=="true"
-    livestatus.getHost.then(data) ->
-        resp = new smp.StatusMessageParser(data)
-        if robot.adapterName == "slack"
-          msgData = {
-            channel: room
-            attachments: [
-              {
-                fallback: "Host Status Response",
-                title: "Host Status Response",
-                title_link: "View Status",
-                text:  resp.formattedResponse(),
-                mrkdwn_in: ["text"]
-              }
-            ]
-          }
-          robot.messageRoom room, msgData
-    .error(error) ->
-      robot.messageRoom room, "No Results Found"
+      livestatus.getHost.then(data) ->
+          resp = new smp.StatusMessageParser(data)
+          if robot.adapterName == "slack"
+            msgData = {
+              channel: room
+              attachments: [
+                {
+                  fallback: "Host Status Response",
+                  title: "Host Status Response",
+                  title_link: "View Status",
+                  text:  resp.formattedResponse(),
+                  mrkdwn_in: ["text"]
+                }
+              ]
+            }
+            robot.messageRoom room, msgData
+      .error(error) ->
+        robot.messageRoom room, "No Results Found"
