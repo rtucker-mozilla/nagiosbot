@@ -1,5 +1,6 @@
 var net = require('net')
-module.exports.executeQuery = function(socketPath, query){
+socketPath = process.env.HUBOT_LIVESTATUS_SOCKET_PATH
+module.exports.executeQuery = function(query){
     return new Promise (function(resolve, reject){
       var client = net.createConnection(socketPath);
       var data;
@@ -42,7 +43,7 @@ module.exports.buildWildcardQuery = function(iStr){
 
 };
 
-module.exports.getHost = function(socketPath, hostname){
+module.exports.getHost = function(hostname){
     return new Promise (function(resolve, reject){
       hostQueryArray = [
         "GET hosts",
@@ -50,7 +51,7 @@ module.exports.getHost = function(socketPath, hostname){
         "Filter: host_name ~ " + module.exports.buildWildcardQuery(hostname)
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
-      module.exports.executeQuery(socketPath, hostQuery).then((data) => {
+      module.exports.executeQuery(hostQuery).then((data) => {
         if(data){
           resolve(data)
         } else {

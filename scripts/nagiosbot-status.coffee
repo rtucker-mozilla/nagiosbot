@@ -11,7 +11,6 @@
 utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
 smp = require("./status-message-parser.coffee")
-
 module.exports = (robot) ->
   #
   # here is the entrypoint router
