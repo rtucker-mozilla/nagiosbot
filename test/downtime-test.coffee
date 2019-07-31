@@ -8,6 +8,7 @@ helper = new Helper([
 co     = require('co')
 expect = require('chai').expect
 commandDowntime = require('../scripts/command-downtime.coffee')
+re = /.*downtime\s+http:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i
 
 describe 'downtime', ->
   beforeEach ->
@@ -45,109 +46,109 @@ describe 'downtime', ->
       expect(cd.getTimestamp(m)).to.eql moment().unix()
       
     it 'should set proper command verb host only', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       expect(cd.verb).to.eql "SCHEDULE_HOST_DOWNTIME"
 
     it 'should set proper command verb with service', ->
-      m = "downtime host.domain.com:Ping 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com:Ping 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       expect(cd.verb).to.eql "SCHEDULE_SVC_DOWNTIME"
 
 
     it 'commandArray[0] should match SCHEDULE_HOST_DOWNTIME', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[0]).to.eql 'SCHEDULE_HOST_DOWNTIME'
 
     it 'commandArray[3] should match \d+', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[3].match(/\d+/)).to.not.be.null
 
     it 'commandArray[4] should match \d+', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[4].match(/\d+/)).to.not.be.null
       
     it 'extractDuration 1d', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("1d")).to.equal 86400
 
     it 'extractDuration 2d', ->
-      m = "downtime host.domain.com 1d message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1d message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("2d")).to.equal 86400 * 2
 
     it 'extractDuration 1h', ->
-      m = "downtime host.domain.com 1h message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1h message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("1h")).to.equal 3600
 
     it 'extractDuration 2h', ->
-      m = "downtime host.domain.com 2h message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2h message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("2h")).to.equal 3600 * 2
 
     it 'extractDuration 1m', ->
-      m = "downtime host.domain.com 1m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("1m")).to.equal 60
 
     it 'extractDuration 2m', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("2m")).to.equal 60 * 2
 
     it 'extractDuration 1s', ->
-      m = "downtime host.domain.com 1m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 1m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("1s")).to.equal 1
 
     it 'extractDuration 2s', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.extractDuration("2s")).to.equal 2
 
     it 'hostname set', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[1]).to.equal "host.domain.com"
 
     it 'source set', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[6]).to.equal "fromHandle"
 
     it 'message set', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       expect(cd.commandArray[7]).to.equal "message here"
 
     it 'commandString', ->
-      m = "downtime host.domain.com 2m message here".match(/.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       endDuration = parseInt(cd.timestamp) + 120
       expect(cd.commandString).to.equal "SCHEDULE_HOST_DOWNTIME;host.domain.com;" + cd.timestamp + ";" + endDuration + ";1;0;fromHandle;message here"
 
     it 'removes http from hostname', ->
-      m = "downtime http://host.domain.com 2m message here".match(/.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      m = "downtime http://host.domain.com 2m message here".match(re)
       cd = new commandDowntime.CommandDowntime(m, "fromHandle")
       cd.interpolate()
       endDuration = parseInt(cd.timestamp) + 120
