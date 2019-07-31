@@ -6,7 +6,6 @@ class CommandBaseClass
 
   fixHostname: (hostname) ->
     if hostname
-      console.log hostname
       return hostname.replace(/^http\:\/\//, "")
     else
       return ""
@@ -17,14 +16,12 @@ module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
     @commandArray = []
     @hostname = @fixHostname(@match[1])
     @downtimeInterval = ""
-    console.log(@match)
     if @match[2]?
       @verb = "SCHEDULE_SVC_DOWNTIME"
     else
       @verb = "SCHEDULE_HOST_DOWNTIME"
 
   extractDuration: (inputDuration) ->
-    console.log("inputDuration: " + inputDuration)
     m = inputDuration.match(/^(\d+)([hdms])/)
     retVal = 0
     switch m[2]
