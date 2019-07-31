@@ -50,7 +50,7 @@ module.exports.getHost = function(socketPath, hostname){
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       module.exports.executeQuery(socketPath, hostQuery).then((data) => {
         resolve(data)
-      }).error( (error) => {
+      }).catch( (error) => {
         reject(error)
       });
     });
