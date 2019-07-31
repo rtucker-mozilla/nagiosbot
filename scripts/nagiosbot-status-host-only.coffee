@@ -18,8 +18,8 @@ module.exports = (robot) ->
   # global status output
   robot.on "status:host", (messageObject, user, room) ->
     if process.env.HUBOT_USE_MKLIVE_STATUS=="true"
-      livestatus.getHost(process.env.HUBOT_LIVESTATUS_SOCKET_PATH, messageObject.hostName).then(data) ->
-        resp = new smp.StatusMessageParser(data)
+      livestatus.getHost(process.env.HUBOT_LIVESTATUS_SOCKET_PATH, messageObject.hostName).then (result) ->
+        resp = new smp.StatusMessageParser(result)
         if robot.adapterName == "slack"
           msgData = {
             channel: room
