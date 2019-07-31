@@ -34,5 +34,5 @@ module.exports = (robot) ->
             ]
           }
           robot.messageRoom room, msgData
-      .catch(error) ->
+      .catch() ->
         robot.messageRoom room, "No Results Found"
