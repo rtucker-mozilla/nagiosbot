@@ -12,11 +12,13 @@ module.exports.executeQuery = function(socketPath, query){
       client.on("data",  function(idata) {
           //client.destroy(); // kill client after server's response
           data = idata.toString().trim();
-          resolve(data);
       });
       client.on("close",  function() {
           client.destroy(); // kill client after server's response
-          reject(data);
+          resolve(data);
+      });
+      client.on("error",  function() {
+          reject("error");
       });
     });
 };
