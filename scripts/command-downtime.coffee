@@ -51,8 +51,9 @@ module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
     @commandArray[3] = @calculateDuration(@timestamp, duration).toString()
     @commandArray[4] = "1"
     @commandArray[5] = "0"
-    @commandArray[6] = @source
-    @commandArray[7] = @match[4]
+    @commandArray[6] = duration
+    @commandArray[7] = @source
+    @commandArray[8] = @match[4]
     @buildCommandString()
 
   buildCommandString: () ->
