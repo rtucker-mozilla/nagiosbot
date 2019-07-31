@@ -4,11 +4,14 @@ class CommandBaseClass
   getTimestamp: () ->
     return moment().unix()
 
+  fixHostname(hostname) ->
+    return hostname.replace(/^http\:\/\//, "")
+
 
 module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
   constructor: (@match, @source) ->
     @commandArray = []
-    @hostname = @match[1]
+    @hostname = @fixHostname(@match[1])
     @downtimeInterval = ""
     if @match[2]?
       @verb = "SCHEDULE_SVC_DOWNTIME"
