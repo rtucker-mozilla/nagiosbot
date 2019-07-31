@@ -17,8 +17,8 @@ module.exports.executeQuery = function(socketPath, query){
           client.destroy(); // kill client after server's response
           resolve(data);
       });
-      client.on("error",  function() {
-          reject("error");
+      client.on("error",  function(error) {
+          reject(new Error(error));
       });
     });
 };
