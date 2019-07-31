@@ -1,10 +1,7 @@
 # Description:
-#   Example scripts for you to examine and try out.
+#   Handle execution of downtime for a host
 #
 # Notes:
-#   They are commented out by default, because most of them are pretty silly and
-#   wouldn't be useful and amusing enough for day to day huboting.
-#   Uncomment the ones you want to try and experiment with.
 #
 
 utils = require("./utils.coffee")
@@ -14,14 +11,9 @@ commandDowntime = require('./command-downtime.coffee')
 command = require('./command.coffee')
 
 module.exports = (robot) ->
-  robot.respond /.*downtime\s+([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
+  robot.respond /.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
-    tmp = msg.match
-    tmp[1] = tmp[1].replace(/http\:\/\//, "")
-
     cd = new commandDowntime.CommandDowntime(tmp, user.id)
     cd.interpolate()
-    msg.reply "match #{tmp}"
-    msg.reply "Downtime for #{tmp[1]} scheduled for 1 day"
     command = new command.Command(cd.commandString)
     command.execute()

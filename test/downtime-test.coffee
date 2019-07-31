@@ -145,3 +145,10 @@ describe 'downtime', ->
       cd.interpolate()
       endDuration = parseInt(cd.timestamp) + 120
       expect(cd.commandString).to.equal "SCHEDULE_HOST_DOWNTIME;host.domain.com;" + cd.timestamp + ";" + endDuration + ";1;0;fromHandle;message here"
+
+    it 'removes http from hostname', ->
+      m = "downtime http://host.domain.com 2m message here".match(/.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i)
+      cd = new commandDowntime.CommandDowntime(m, "fromHandle")
+      cd.interpolate()
+      endDuration = parseInt(cd.timestamp) + 120
+      expect(cd.commandString).to.equal "SCHEDULE_HOST_DOWNTIME;host.domain.com;" + cd.timestamp + ";" + endDuration + ";1;0;fromHandle;message here"

@@ -4,8 +4,12 @@ class CommandBaseClass
   getTimestamp: () ->
     return moment().unix()
 
-  fixHostname(hostname) ->
-    return hostname.replace(/^http\:\/\//, "")
+  fixHostname: (hostname) ->
+    if hostname
+      console.log hostname
+      return hostname.replace(/^http\:\/\//, "")
+    else
+      return ""
 
 
 module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
