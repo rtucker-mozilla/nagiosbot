@@ -48,7 +48,7 @@ module.exports.getHost = function(socketPath, hostname){
         "Filter: host_name ~ " + module.exports.buildWildcardQuery(hostname)
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
-      livestatus.executeQuery(socketPath, hostQuery).then((data) => {
+      module.exports.executeQuery(socketPath, hostQuery).then((data) => {
         resolve(data)
       }).error( (error) => {
         reject(error)
