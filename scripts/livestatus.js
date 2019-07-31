@@ -1,5 +1,5 @@
 var net = require('net')
-module.exports.executeQuery = function(socketPath, query, cb){
+module.exports.executeQuery = function(socketPath, query){
     return new Promise (function(resolve, reject){
       var client = net.createConnection(socketPath);
       var data;
