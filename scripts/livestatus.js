@@ -17,8 +17,8 @@ module.exports.executeQuery = function(socketPath, query){
           client.destroy(); // kill client after server's response
           resolve(data);
       });
-      client.on("error",  function(error) {
-          reject(new Error(error));
+      client.on("error",  function() {
+          reject(new Error("Query Failed"));
       });
     });
 };
@@ -51,6 +51,7 @@ module.exports.getHost = function(socketPath, hostname){
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       module.exports.executeQuery(socketPath, hostQuery).then((data) => {
+        console.log(data)
         resolve(data)
       }).catch( (error) => {
         reject(new Error("Host Not Found"))
