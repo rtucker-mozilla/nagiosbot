@@ -153,3 +153,10 @@ describe 'downtime', ->
       cd.interpolate()
       endDuration = parseInt(cd.timestamp) + 120
       expect(cd.commandString).to.equal "SCHEDULE_HOST_DOWNTIME;host.domain.com;" + cd.timestamp + ";" + endDuration + ";1;0;fromHandle;message here"
+
+    it 'setting proper duration', ->
+      m = "downtime http://host1.vlan.dc.domain.com 1h testing".match(re)
+      cd = new commandDowntime.CommandDowntime(m, "fromHandle")
+      cd.interpolate()
+      endDuration = parseInt(cd.timestamp) + 3600 
+      expect(cd.commandString).to.equal "SCHEDULE_HOST_DOWNTIME;host1.vlan.dc.domain.com;" + cd.timestamp + ";" + endDuration + ";1;0;fromHandle;testing"

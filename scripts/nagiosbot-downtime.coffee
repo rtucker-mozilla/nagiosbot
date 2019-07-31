@@ -13,7 +13,7 @@ command = require('./command.coffee')
 module.exports = (robot) ->
   robot.respond /.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
     user = robot.brain.userForId msg.envelope.user.id
-    cd = new commandDowntime.CommandDowntime(msg.match[1], user.id)
+    cd = new commandDowntime.CommandDowntime(msg, user.id)
     cd.interpolate()
     command = new command.Command(cd.commandString)
     command.execute()
