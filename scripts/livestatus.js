@@ -51,8 +51,11 @@ module.exports.getHost = function(socketPath, hostname){
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       module.exports.executeQuery(socketPath, hostQuery).then((data) => {
-        console.log("resolving: " + data)
-        resolve(data)
+        if(data){
+          resolve(data)
+        } else {
+          reject("Host not found: " + hostname)
+        }
       }).catch((error) => {
         reject(new Error("Host Not Found"))
       });
