@@ -1,4 +1,5 @@
-moment = require('moment');
+moment = require('moment')
+livestatus = require('livestatus.js')
 
 class CommandBaseClass
   getTimestamp: () ->
@@ -9,6 +10,13 @@ class CommandBaseClass
       return hostname.replace(/^http\:\/\//, "")
     else
       return ""
+
+  getHost: (hostname) ->
+      livestatus.getHost(messageObject.hostName).then (result) ->
+          return result
+      .catch (error) ->
+        return false
+
 
 
 module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
