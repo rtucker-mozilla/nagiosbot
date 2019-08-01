@@ -29,6 +29,7 @@ module.exports = (robot) ->
       if shouldPullObjectFromBrain
         notificationId = smp.notificationIdFromMessage(messageText)
         notificationObject = robot.brain.get(notificationId)
+        console.log notificationObject
         if notificationObject != null
           if notificationObject.notificationType == 'HOST'
             messageText = "status #{notificationObject.hostName}"
