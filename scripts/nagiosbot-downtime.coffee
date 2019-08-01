@@ -21,5 +21,5 @@ module.exports = (robot) ->
       cmd.execute()
       msg.reply "Downtime for #{msg.match[1]} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
-      robot.messageRoom room, error
+      msg.reply error
 
