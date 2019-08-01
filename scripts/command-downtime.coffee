@@ -1,25 +1,8 @@
 moment = require('moment')
 livestatus = require('./livestatus.js')
+base = require('./base.coffee')
 
-class CommandBaseClass
-  getTimestamp: () ->
-    return moment().unix()
-
-  fixHostname: (hostname) ->
-    if hostname
-      return hostname.replace(/^http\:\/\//, "")
-    else
-      return ""
-
-  getHost: (hostname) ->
-      livestatus.getHost(messageObject.hostName).then (result) ->
-          return result
-      .catch (error) ->
-        return false
-
-
-
-module.exports.CommandDowntime = class CommandDowntime extends CommandBaseClass
+module.exports.CommandDowntime = class CommandDowntime extends base.CommandBaseClass
   constructor: (@match, @source) ->
     @commandArray = []
     @hostname = @fixHostname(@match[1])
