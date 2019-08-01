@@ -9,7 +9,7 @@ ss = require("./server-stats.coffee")
 smp = require("./status-message-parser.coffee")
 commandDowntime = require('./command-downtime.coffee')
 command = require('./command.coffee')
-livestatus = require('livestatus.js')
+livestatus = require('./livestatus.js')
 
 module.exports = (robot) ->
   robot.respond /.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->

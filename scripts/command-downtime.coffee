@@ -1,5 +1,5 @@
 moment = require('moment')
-livestatus = require('livestatus.js')
+livestatus = require('./livestatus.js')
 
 class CommandBaseClass
   getTimestamp: () ->
