@@ -11,8 +11,8 @@ livestatus = require('./livestatus.js')
 module.exports = (robot) ->
   robot.respond /.*undowntime\s+http\:\/\/([^: ]+)$/i, (msg) ->
     livestatus.getHost(msg.match[1]).then (result) ->
+      console.log(result)
       if result.downtime_id
-        console.log(result)
         user = robot.brain.userForId msg.envelope.user.id
         cd = new commandUndowntime.CommandUndowntime(downtime_id, user.name)
         cd.interpolate()
