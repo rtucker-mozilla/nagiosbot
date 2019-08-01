@@ -65,3 +65,26 @@ module.exports.getHost = function(hostname){
 
 }
 
+
+module.exports.downtimesByHost = function(hostname){
+    hostname = hostname.replace(/^http\:\/\//, "")
+    return new Promise (function(resolve, reject){
+      queryArray = [
+        "GET downtimes",
+        "Columns: id",
+        "Filter: host_alias ~ " + hostname
+      ]
+      hostQuery = queryArray.join("\n") + "\n\n"
+      module.exports.executeQuery(hostQuery).then((data) => {
+        if(data){
+          resolve(data)
+        } else {
+          reject("Downtimes not found for host: " + hostname)
+        }
+      }).catch((error) => {
+        reject(new Error("Host Not Found"))
+      });
+    });
+
+}
+
