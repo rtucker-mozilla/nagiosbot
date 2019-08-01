@@ -12,9 +12,9 @@ module.exports = (robot) ->
   robot.respond /.*undowntime\s+http\:\/\/([^: ]+)$/i, (msg) ->
     livestatus.getHost(msg.match[1]).then (result) ->
       console.log(result)
-      if result.downtimes
+      if parseInt(result[6])
         user = robot.brain.userForId msg.envelope.user.id
-        cd = new commandUndowntime.CommandUndowntime(downtime_id, user.name)
+        cd = new commandUndowntime.CommandUndowntime(parseInt(result[6]), user.name)
         cd.interpolate()
         cmd = new command.Command(cd.commandString)
         cmd.execute()
