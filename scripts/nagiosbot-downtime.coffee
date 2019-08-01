@@ -13,9 +13,7 @@ livestatus = require('./livestatus.js')
 
 module.exports = (robot) ->
   robot.respond /.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
-    console.log(msg)
     livestatus.getHost(msg.match[1]).then (result) ->
-      console.log(result)
       user = robot.brain.userForId msg.envelope.user.id
       cd = new commandDowntime.CommandDowntime(msg.match, user.name)
       cd.interpolate()
@@ -23,6 +21,5 @@ module.exports = (robot) ->
       cmd.execute()
       msg.reply "Downtime for #{msg.match[1]} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
-      console.log(error)
       msg.reply error
 
