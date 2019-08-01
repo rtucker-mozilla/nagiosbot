@@ -21,8 +21,8 @@ module.exports = (robot) ->
     ni = new notificationIndex.NotificationIndex(robot, start, width)
     n = new notification.Notification(data.line)
     n.parse()
-    nextIndex = ni.getNextIndex()
-    msg = n.getMessage(nextIndex)
+    currentIndex = ni.currentIndex
+    msg = n.getMessage(currentIndex)
     if data.raw
       robot.messageRoom n.notificationChannel, data.line
     else
