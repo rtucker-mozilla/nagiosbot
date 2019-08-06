@@ -17,4 +17,5 @@ module.exports = (robot) ->
     console.log("msg.match: " + msg.match)
     msgId = msg.match[1]
     notificationObject = robot.brain.get(msgId.toString())
-    robot.messageRoom room, notificationObject
+    console.log(notificationObject)
+    msg.reply "Acking"
