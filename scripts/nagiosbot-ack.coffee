@@ -13,7 +13,7 @@ ss = require("./server-stats.coffee")
 smp = require("./status-message-parser.coffee")
 module.exports = (robot) ->
 # ack by id index numb er
-  robot.respond "/ack\s(\d+)$/i", (msg, user) ->
+  robot.respond "/.*ack\s+(\d+)$/i", (msg, user) ->
     console.log("msg.match: " + msg.match)
     msgId = msg.match[1]
     notificationObject = robot.brain.get(msgId.toString())
