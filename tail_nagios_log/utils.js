@@ -10,9 +10,12 @@ var postLineMapping = {
     notification: [
         /^\[\d+\] HOST NOTIFICATION:/,
         /^\[\d+\] SERVICE NOTIFICATION:/
+    ],
+    ack: [
+        /^\[\d+\] EXTERNAL COMMAND: ACKNOWLEDGE_HOST_PROBLEM;/,
+        /^\[\d+\] EXTERNAL COMMAND: ACKNOWLEDGE_SVC_PROBLEM;/,
     ]
 }
-
 
 function shouldPostLine(line){
     retVal = {
