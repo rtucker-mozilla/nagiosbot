@@ -11,6 +11,7 @@
 utils = require("./utils.coffee")
 ss = require("./server-stats.coffee")
 smp = require("./status-message-parser.coffee")
+commandAck = require('./command-ack.coffee')
 module.exports = (robot) ->
 # ack by id index numb er
   robot.respond /ack\s+(\d+)\s+(.*)$/i, (msg, user) ->
