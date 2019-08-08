@@ -48,12 +48,13 @@ module.exports.getHost = function(hostname){
     return new Promise (function(resolve, reject){
       hostQueryArray = [
         "GET hosts",
-        "Columns: host_name state plugin_output last_check host_acknowledged address downtimes",
+        "Columns: host_name state plugin_output last_check host_acknowledged address downtimes contactgroups",
         "Filter: host_name ~ " + module.exports.buildWildcardQuery(hostname)
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       module.exports.executeQuery(hostQuery).then((data) => {
         if(data){
+          console.log(data)
           resolve(data)
         } else {
           reject("Host not found: " + hostname)
