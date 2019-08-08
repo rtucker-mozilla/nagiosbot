@@ -13,9 +13,23 @@ ss = require("./server-stats.coffee")
 smp = require("./status-message-parser.coffee")
 module.exports = (robot) ->
 # ack by id index numb er
-  robot.respond /ack\s+(\d+)$/i, (msg, user) ->
-    console.log("msg.match: " + msg.match)
+  robot.respond /ack\s+(\d+)\s+(.*)$/i, (msg, user) ->
     msgId = msg.match[1]
+    comment = msg.match[2]
+    user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
-    console.log(notificationObject)
-    msg.reply "Acking"
+    if notificationObject
+      console.log(notificationObject)
+      
+      ca = new commandAck.CommandAck(
+        notificationObject.hostName,
+        notificationObject.serviceName,
+        comment,
+        user.name
+        )
+      ca.interpolate()
+      cmd = new command.Command(ca.commandString)
+      cmd.execute()
+      msg.reply "Notification for #{msg.match[1]} acked"
+    else
+      msg.reply "Unable to find object by index #{msg.match[1]}"
