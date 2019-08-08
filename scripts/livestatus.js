@@ -48,7 +48,7 @@ module.exports.getHost = function(hostname){
     return new Promise (function(resolve, reject){
       hostQueryArray = [
         "GET hosts",
-        "Columns: host_name state plugin_output last_check host_acknowledged address downtimes contactgroups contacts",
+        "Columns: host_name state plugin_output last_check host_acknowledged address downtimes contact_groups contacts",
         "Filter: host_name ~ " + module.exports.buildWildcardQuery(hostname)
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
