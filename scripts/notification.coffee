@@ -7,6 +7,9 @@ statusClassificationEmoji = {
   "DOWNTIMESTART (UP)": ":dot_go-green:",
   "DOWNTIMEEND (UP)": ":dot_go-green:",
   "DOWN": ":dot_moz-red:",
+  "CRITICAL": ":dot_moz-red:",
+  "OK": ":dot_go-green:",
+  "WARNING": ":dot_go-yellow:",
 }
 
 exports.Notification = class Notification
@@ -20,7 +23,10 @@ exports.Notification = class Notification
     return dateObj.format('ddd HH:mm:ss UTC')
 
   getMessage: (index) ->
-    return util.format('%s %s [%d] [%s] %s is %s: %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @serviceName, @message)
+    if @notificationType == "HOST"
+      return util.format('%s %s [%d] [%s] HOST %s is %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @message)
+    else if @notificationType == "SERVICE"
+      return util.format('%s %s [%d] [%s] %s is %s: %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @serviceName, @message)
 
   parse: ->
     hostOrServiceRe = /^\[\d+\]\s(SERVICE|HOST)\sNOTIFICATION:.*/
@@ -40,10 +46,11 @@ exports.Notification = class Notification
       @notificationType = matches[2]
       @notificationDestination = matches[3]
       @hostName = matches[4]
-      @serviceName = matches[5]
+      @serviceName = null
+      @notificationLevel = matches[5]
       @notificationAction = matches[6]
       @message = matches[7]
-      @emoji = statusClassificationEmoji[@serviceName]
+      @emoji = statusClassificationEmoji[@notificationLevel]
       @dateFormat = this.formatDate(@timestamp)
 
     else
@@ -57,7 +64,7 @@ exports.Notification = class Notification
       @notificationLevel = matches[6]
       @notificationAction = matches[7]
       @message = matches[8]
-      @emoji = statusClassificationEmoji[@serviceName]
+      @emoji = statusClassificationEmoji[@notificationLevel]
       @dateFormat = this.formatDate(@timestamp)
 
     @notificationChannel = @notificationChannels[@notificationDestination] || @notificationDestination

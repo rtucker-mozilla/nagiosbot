@@ -59,8 +59,15 @@ describe 'SERVICE notification', ->
     # expect(n.notificationDestionation).to.equal(properValue)
 
   it 'extracts message', ->
-    line = "[1529319170] SERVICE NOTIFICATION: infrastructurealertslist;generic2.db.scl3.mozilla.com;Puppet freshness;WARNING;notify-by-email;Last run had 2 errors"
+    line = "[1565704013] SERVICE NOTIFICATION: irchilight;bacula1.private.mdc1.mozilla.com;Test for a service to break;CRITICAL;notify-by-email;FILE_AGE CRITICAL: /tmp/file_age_test is 349 seconds old and 0 bytes"
     n = new notification.Notification(line)
     n.parse(line)
-    properValue = 'Last run had 2 errors'
+    properValue = 'FILE_AGE CRITICAL: /tmp/file_age_test is 349 seconds old and 0 bytes'
     expect(n.message).to.equal(properValue)
+
+  it 'extracts status', ->
+    line = "[1565704013] SERVICE NOTIFICATION: irchilight;bacula1.private.mdc1.mozilla.com;Test for a service to break;CRITICAL;notify-by-email;FILE_AGE CRITICAL: /tmp/file_age_test is 349 seconds old and 0 bytes"
+    n = new notification.Notification(line)
+    n.parse(line)
+    properValue = 'CRITICAL'
+    expect(n.notificationLevel).to.equal(properValue)

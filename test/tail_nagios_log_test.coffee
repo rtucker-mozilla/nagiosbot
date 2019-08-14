@@ -40,6 +40,6 @@ describe 'tail_nagios_log utils', ->
     expect(utils.shouldPostLine(line).endpoint).to.equal("notification")
 
   it 'host notification should post for valid SERVICE NOTIFICATION line', ->
-    line = "[1563240990] SERVICE NOTIFICATION: notificationgroup;host.domain.com;DOWN;host-notify-by-email;PING CRITICAL - Packet loss = 100%"
+    line = "[1565704013] SERVICE NOTIFICATION: notificationgroup;host.domain.com"
     expect(utils.shouldPostLine(line).value).to.equal(true)
     expect(utils.shouldPostLine(line).endpoint).to.equal("notification")

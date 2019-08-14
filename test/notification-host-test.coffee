@@ -51,21 +51,22 @@ describe 'HOST notification', ->
     line = "[1529310603] HOST NOTIFICATION: irc;reviewboard1.webapp.scl3.mozilla.com;DOWNTIMESTART (UP);host-notify-by-email;PING OK - Packet loss = 0%, RTA = 0.92 ms"
     n = new notification.Notification(line)
     n.parse(line)
-    properValue = 'DOWNTIMESTART (UP)'
+    properValue = null
     expect(n.serviceName).to.equal(properValue)
 
   it 'extracts notificationLevel', ->
     line = "[1529310603] HOST NOTIFICATION: irc;reviewboard1.webapp.scl3.mozilla.com;DOWNTIMESTART (UP);host-notify-by-email;PING OK - Packet loss = 0%, RTA = 0.92 ms"
     n = new notification.Notification(line)
     n.parse(line)
-    properValue = 'notify-by-email'
-    # expect(n.notificationDestionation).to.equal(properValue)
+    properValue = 'DOWNTIMESTART (UP)'
+    expect(n.notificationLevel).to.equal(properValue)
 
   it 'extracts message', ->
     line = "[1529310603] HOST NOTIFICATION: irc;reviewboard1.webapp.scl3.mozilla.com;DOWNTIMESTART (UP);host-notify-by-email;PING OK - Packet loss = 0%, RTA = 0.92 ms"
     n = new notification.Notification(line)
     n.parse(line)
     properValue = 'PING OK - Packet loss = 0%, RTA = 0.92 ms'
+    console.log(n.globalMatches)
     expect(n.message).to.equal(properValue)
 
   it 'interpolates notificationIndex correctly', ->
@@ -73,13 +74,14 @@ describe 'HOST notification', ->
     n = new notification.Notification(line)
     n.parse(line)
     msg = n.getMessage(1000)
-    properValue = ':dot_go-green: Mon 08:30:03 UTC [1000] [irc] reviewboard1.webapp.scl3.mozilla.com is DOWNTIMESTART (UP): PING OK - Packet loss = 0%, RTA = 0.92 ms'
+    properValue = ':dot_go-green: Mon 08:30:03 UTC [1000] [irc] HOST reviewboard1.webapp.scl3.mozilla.com is PING OK - Packet loss = 0%, RTA = 0.92 
+ms'
     expect(msg).to.equal(properValue)
 
     line = "[1529310603] HOST NOTIFICATION: irc;reviewboard1.webapp.scl3.mozilla.com;DOWNTIMESTART (UP);host-notify-by-email;PING OK - Packet loss = 0%, RTA = 0.92 ms"
     n = new notification.Notification(line)
     n.parse(line)
-    properValue = ':dot_go-green: Mon 08:30:03 UTC [1000] [irc] reviewboard1.webapp.scl3.mozilla.com is DOWNTIMESTART (UP): PING OK - Packet loss = 0%, RTA = 0.92 ms'
+    properValue = ':dot_go-green: Mon 08:30:03 UTC [1000] [irc] HOST reviewboard1.webapp.scl3.mozilla.com is PING OK - Packet loss = 0%, RTA = 0.92 ms'
     expect(msg).to.equal(properValue)
 
   it 'sets notificationChannel with process.env.HUBOT_NOTIFICATION_CHANNELS', ->
