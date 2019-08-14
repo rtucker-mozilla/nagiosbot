@@ -26,7 +26,7 @@ exports.Notification = class Notification
     if @notificationType == "HOST"
       return util.format('%s %s [%d] [%s] HOST %s is %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @message)
     else if @notificationType == "SERVICE"
-      return util.format('%s %s [%d] [%s] %s is %s: %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @serviceName, @message)
+      return util.format('%s %s [%d] [%s] %s:%s is %s %s', @emoji, @dateFormat, index, @notificationDestination, @hostName, @serviceName, @notificationLevel, @message)
 
   parse: ->
     hostOrServiceRe = /^\[\d+\]\s(SERVICE|HOST)\sNOTIFICATION:.*/
