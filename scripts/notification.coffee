@@ -6,6 +6,8 @@ statusClassificationEmoji = {
   "UP": ":dot_go-green:",
   "DOWNTIMESTART (UP)": ":dot_go-green:",
   "DOWNTIMEEND (UP)": ":dot_go-green:",
+  "ACKNOWLEDGEMENT (CRITICAL)": ":dot_moz-red:",
+  "ACKNOWLEDGEMENT (OK)": ":dot_go-green:",
   "DOWN": ":dot_moz-red:",
   "CRITICAL": ":dot_moz-red:",
   "OK": ":dot_go-green:",
