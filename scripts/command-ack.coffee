@@ -7,7 +7,10 @@ base = require('./base.coffee')
 module.exports.CommandAck = class CommandAck extends base.CommandBaseClass
   constructor: (@hostname, @service, @comment, @source) ->
     @commandArray = []
-    @verb = "ACKNOWLEDGE_HOST_PROBLEM"
+    if @service
+      @verb = "ACKNOWLEDGE_SVC_PROBLEM"
+    else
+      @verb = "ACKNOWLEDGE_HOST_PROBLEM"
     @sticky = 1
     @notify = 1
     @persistent = 1

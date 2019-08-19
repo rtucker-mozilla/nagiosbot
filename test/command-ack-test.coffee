@@ -102,3 +102,22 @@ describe 'ack', ->
       ca.interpolate()
       expect(ca.commandString).to.equal "ACKNOWLEDGE_HOST_PROBLEM;host.domain.com;1;1;1;fromHandle;message here"
 
+
+  context 'CommandAck class for Service', ->
+
+    beforeEach ->
+      @input =  ""
+
+    it 'should set proper unixtimestamp', ->
+      ca = new commandAck.CommandAck({})
+      m = moment()
+      expect(ca.getTimestamp(m)).to.eql moment().unix()
+      
+    it 'should set proper command verb for service', ->
+      ca = new commandAck.CommandAck(
+        'host.domain.com',
+        'Test Service',
+        'fromHandle'
+        )
+      ca.interpolate()
+      expect(ca.verb).to.eql "ACKNOWLEDGE_SVC_PROBLEM"
