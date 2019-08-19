@@ -18,6 +18,9 @@ module.exports = (robot) ->
     data   = if request.body.payload? then JSON.parse request.body.payload else request.body
     start = process.env.HUBOT_INDEX_START || 1000
     width = process.env.HUBOT_INDEX_WIDTH || 100
+    console.log("ack received")
+    console.log(data.line)
+    matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
     ni = new notificationIndex.NotificationIndex(robot, start, width)
     n = new notification.Notification(data.line)
     n.parse()
@@ -28,4 +31,3 @@ module.exports = (robot) ->
     else
       robot.messageRoom n.notificationChannel, msg
     ni.set(n)
-    res.send 'OK'
