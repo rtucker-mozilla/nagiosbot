@@ -121,3 +121,21 @@ describe 'ack', ->
         )
       ca.interpolate()
       expect(ca.verb).to.eql "ACKNOWLEDGE_SVC_PROBLEM"
+
+    it 'should set proper serivce name', ->
+      ca = new commandAck.CommandAck(
+        'host.domain.com',
+        'Test Service',
+        'fromHandle'
+        )
+      ca.interpolate()
+      expect(ca.verb).to.eql "ACKNOWLEDGE_SVC_PROBLEM"
+
+    it 'notify set', ->
+      ca = new commandAck.CommandAck(
+        'host.domain.com',
+        'Test Service',
+        'fromHandle'
+        )
+      ca.interpolate()
+      expect(ca.commandArray[2]).to.equal 'Test Service'

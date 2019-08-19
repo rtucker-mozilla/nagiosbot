@@ -19,13 +19,24 @@ module.exports.CommandAck = class CommandAck extends base.CommandBaseClass
     # write_string = "ACKNOWLEDGE_HOST_PROBLEM;<host_name>;<sticky>;<notify>;<persistent>;<author>;<comment>"
     # write_string = "[%lu] ACKNOWLEDGE_HOST_PROBLEM;%s;1;1;1;nagiosadmin;(%s)%s\n" % (timestamp,host,from_user,message)
 
-    @commandArray[0] = @verb
-    @commandArray[1] = @hostname
-    @commandArray[2] = @sticky
-    @commandArray[3] = @notify
-    @commandArray[4] = @persistent
-    @commandArray[5] = @source
-    @commandArray[6] = @comment
+    if @service
+
+      @commandArray[0] = @verb
+      @commandArray[1] = @hostname
+      @commandArray[2] = @service
+      @commandArray[3] = @sticky
+      @commandArray[4] = @notify
+      @commandArray[5] = @persistent
+      @commandArray[6] = @source
+      @commandArray[7] = @comment
+    else
+      @commandArray[0] = @verb
+      @commandArray[1] = @hostname
+      @commandArray[2] = @sticky
+      @commandArray[3] = @notify
+      @commandArray[4] = @persistent
+      @commandArray[5] = @source
+      @commandArray[6] = @comment
     @buildCommandString()
 
   buildCommandString: () ->
