@@ -16,26 +16,7 @@ describe 'ack', ->
   afterEach ->
     @room.destroy()
 
-  context 'downtime all services by hostname only', ->
-    beforeEach ->
-      co =>
-        yield @room.user.say 'bob', '@hubot: downtime host.domain.com 1d message here'
-
-
-  context 'downtime all services by hostname with wildcard', ->
-    beforeEach ->
-      co =>
-        yield @response = @room.user.say 'bob', '@hubot: downtime host.domain.com:* 1d message here'
-
-    
-    #it 'should reply to user', ->
-    #  response = "@bob Downtime for host.domain.com scheduled for 1 day"
-    #  expect(@room.messages).to.eql [
-    #    ['bob',   '@hubot: downtime host.domain.com:* 1d message here']
-    #    ['hubot', response]
-    #  ]
-
-  context 'CommandDowntime class for Host', ->
+  context 'CommandAck class for Host', ->
 
     beforeEach ->
       @input =  ""

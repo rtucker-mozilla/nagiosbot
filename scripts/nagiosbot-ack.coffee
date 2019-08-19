@@ -8,9 +8,6 @@
 #
 #   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
 
-utils = require("./utils.coffee")
-ss = require("./server-stats.coffee")
-smp = require("./status-message-parser.coffee")
 commandAck = require('./command-ack.coffee')
 command = require('./command.coffee')
 module.exports = (robot) ->
