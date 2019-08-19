@@ -20,14 +20,3 @@ module.exports = (robot) ->
     width = process.env.HUBOT_INDEX_WIDTH || 100
     console.log("ack received")
     console.log(data.line)
-    matchRe = /^\[(\d+)\]\s(SERVICE|HOST)\sNOTIFICATION:\s([^;]+);([^;]+);([^;]+);([^;]+);([^;]+).*/
-    ni = new notificationIndex.NotificationIndex(robot, start, width)
-    n = new notification.Notification(data.line)
-    n.parse()
-    currentIndex = ni.currentIndex
-    msg = n.getMessage(currentIndex)
-    if data.raw
-      robot.messageRoom n.notificationChannel, data.line
-    else
-      robot.messageRoom n.notificationChannel, msg
-    ni.set(n)
