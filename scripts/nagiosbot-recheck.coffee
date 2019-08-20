@@ -25,7 +25,7 @@ module.exports = (robot) ->
         timestampObj = null
       else
         validTimestampDirective = true
-        timestampObj = moment().unit() + timestampObj
+        timestampObj = moment().unix() + timestampObj
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
     if notificationObject
