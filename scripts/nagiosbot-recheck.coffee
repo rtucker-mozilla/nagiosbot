@@ -38,13 +38,14 @@ module.exports = (robot) ->
       cmd = new command.Command(ca.commandString)
       cmd.execute()
 
-      msg = ""
+      message = ""
       if notificationObject.serviceName
-        msg.reply "Rechecking #{notificationObject.serviceName} on #{notificationObject.hostName}"
+        message = "Rechecking #{notificationObject.serviceName} on #{notificationObject.hostName}"
       else
-        msg.reply "Rechecking all services on #{notificationObject.hostName}"
+        message = "Rechecking all services on #{notificationObject.hostName}"
 
       if validTimestampDirective
-        msg.reply msg + ' in ' + msg.match[2]
+        message = message + ' in ' + msg.match[2]
+      msg.reply message
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
