@@ -23,7 +23,7 @@ module.exports = (robot) ->
       if timestampObj == 0
         timestampObj = null
       else
-      validTimestampDirective = true
+        validTimestampDirective = true
         timestampObj = moment().unit() + timestampObj
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
@@ -44,6 +44,6 @@ module.exports = (robot) ->
         msg.reply "Rechecking all services on #{notificationObject.hostName}"
 
       if validTimestampDirective
-        msg.reply msg + ' in ' msg.match[2]
+        msg.reply msg + ' in ' + msg.match[2]
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
