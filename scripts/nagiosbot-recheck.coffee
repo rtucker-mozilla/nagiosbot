@@ -12,15 +12,18 @@ commandRecheck = require('./command-recheck.coffee')
 command = require('./command.coffee')
 module.exports = (robot) ->
 # ack by id index numb er
-  robot.respond /recheck\s+(\d+)\s+(.*)$/i, (msg, user) ->
+  robot.respond /recheck\s+(\d+)\s?(.*)?$/i, (msg, user) ->
     msgId = msg.match[1]
+    timestampObj = null
+    if msg.match[2]
+      timestampObj = msg.match[2]
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
     if notificationObject
       ca = new commandRecheck.CommandRecheck(
         notificationObject.hostName,
         notificationObject.serviceName,
-        msg.match[2]
+        timestampObj
         )
       ca.interpolate()
       cmd = new command.Command(ca.commandString)
