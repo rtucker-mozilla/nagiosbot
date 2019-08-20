@@ -11,6 +11,7 @@
 commandRecheck = require('./command-recheck.coffee')
 command = require('./command.coffee')
 ed = require('./extractDuration')
+moment = require('moment')
 
 module.exports = (robot) ->
 # ack by id index numb er
