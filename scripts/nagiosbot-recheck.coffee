@@ -18,7 +18,7 @@ module.exports = (robot) ->
     msgId = msg.match[1]
     timestampObj = null
     if msg.match[2]
-      timestampObj = ed(msg.match[2])
+      timestampObj = ed.extractDuration(msg.match[2])
       if timestampObj == 0
         timestampObj = null
     user = robot.brain.userForId msg.envelope.user.id
