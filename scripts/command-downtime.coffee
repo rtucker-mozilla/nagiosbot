@@ -1,6 +1,8 @@
 moment = require('moment')
 livestatus = require('./livestatus.js')
 base = require('./base.coffee')
+ed = require('./extractDuration')
+
 
 module.exports.CommandDowntime = class CommandDowntime extends base.CommandBaseClass
   constructor: (@match, @source) ->
@@ -13,15 +15,7 @@ module.exports.CommandDowntime = class CommandDowntime extends base.CommandBaseC
       @verb = "SCHEDULE_HOST_DOWNTIME"
 
   extractDuration: (inputDuration) ->
-    m = inputDuration.match(/^(\d+)([hdms])/)
-    retVal = 0
-    switch m[2]
-      when "d" then retVal = parseInt(m[1]) * 86400
-      when "h" then retVal = parseInt(m[1]) * 3600
-      when "m" then retVal = parseInt(m[1]) * 60
-      when "s" then retVal = parseInt(m[1])
-      else retVal = 0
-    return parseInt(retVal)
+    return ed.extractDuration(inputDuration)
 
   calculateDuration: (baseTimestamp, additionalSeconds) ->
     baseTimestamp = parseInt(baseTimestamp)
