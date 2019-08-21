@@ -1,5 +1,5 @@
 # Commands:
-#   nagiosbot recheck [1234] - have nagiosbot recheck the service by index number.
+#   hubot recheck [1234] - have nagiosbot recheck the service by index number.
 
 commandRecheck = require('./command-recheck.coffee')
 command = require('./command.coffee')
