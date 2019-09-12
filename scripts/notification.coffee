@@ -3,15 +3,15 @@ util = require 'util'
 moment = require 'moment'
 
 statusClassificationEmoji = {
-  "UP": ":dot_go-green:",
-  "DOWNTIMESTART (UP)": ":dot_go-green:",
-  "DOWNTIMEEND (UP)": ":dot_go-green:",
-  "ACKNOWLEDGEMENT (CRITICAL)": ":dot_moz-red:",
-  "ACKNOWLEDGEMENT (OK)": ":dot_go-green:",
-  "DOWN": ":dot_moz-red:",
-  "CRITICAL": ":dot_moz-red:",
-  "OK": ":dot_go-green:",
-  "WARNING": ":dot_go-yellow:",
+  "UP": ":nagios_status_ok_green:",
+  "DOWNTIMESTART (UP)": ":nagios_status_ok_green:",
+  "DOWNTIMEEND (UP)": ":nagios_status_ok_green:",
+  "ACKNOWLEDGEMENT (CRITICAL)": ":nagios_status_critical_red:",
+  "ACKNOWLEDGEMENT (OK)": ":nagios_status_ok_green:",
+  "DOWN": ":nagios_status_critical_red:",
+  "CRITICAL": ":nagios_status_critical_red:",
+  "OK": ":nagios_status_ok_green:",
+  "WARNING": ":nagios_status_warning_yellow:",
 }
 
 exports.Notification = class Notification
