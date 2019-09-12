@@ -13,17 +13,28 @@ var utils = require('./utils');
 var filename = utils.logFilePath();
 const axios = require('axios');
 
+var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
+var log_stdout = process.stdout;
+
+console.log = function(d) { //
+  log_file.write(util.format(d) + '\n');
+  log_stdout.write(util.format(d) + '\n');
+};
+
 if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
 
 var tail = new Tail(filename, '\n');
 var url = utils.hubotURL();
 
 tail.on('line', function(line) {
+    console.log("got line: " + line)
     var shouldPostResponse = utils.shouldPostLine(line);
     if(shouldPostResponse.value == true){
+        console.log("posting line: " + line)
         axios.post(url + '/' + shouldPostResponse.endpoint, {line: line})
         .then((data) => {
             console.log(data)
+            console.log("got data response: " + data)
         })
         .catch((error) => {
             console.log(error.code)
