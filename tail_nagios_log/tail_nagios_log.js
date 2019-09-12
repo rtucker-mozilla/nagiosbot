@@ -13,6 +13,12 @@ var utils = require('./utils');
 var util = require('util');
 var filename = utils.logFilePath();
 const axios = require('axios');
+var hubotLogLevel = process.env.HUBOT_LOG_LEVEL || false
+
+var debug = false;
+if (hubotLogLevel == 'debug'){
+    shouldDebugLog = true;
+}
 
 var log_file = fs.createWriteStream(__dirname + '/debug.log', {flags : 'w'});
 var log_stdout = process.stdout;
@@ -26,20 +32,28 @@ if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
 
 var tail = new Tail(filename, '\n');
 var url = utils.hubotURL();
-
-console.log("starting")
+if(shouldDebugLog){
+    console.log("starting")
+}
 tail.on('line', function(line) {
-    console.log("got line: " + line)
+    if(shouldDebugLog){
+        console.log("got line: " + line)
+    }
     var shouldPostResponse = utils.shouldPostLine(line);
     if(shouldPostResponse.value == true){
-        console.log("posting line: " + line)
+        if(shouldDebugLog){
+            console.log("posting line: " + line)
+        }
         axios.post(url + '/' + shouldPostResponse.endpoint, {line: line})
         .then((data) => {
-            console.log(data)
-            console.log("got data response: " + data)
+            if(shouldDebugLog){
+                console.log("got data response: " + data)
+            }
         })
         .catch((error) => {
-            console.log(error.code)
+            if(shouldDebugLog){
+                console.log(error.code)
+            }
         })
     }
 });

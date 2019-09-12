@@ -4,3 +4,4 @@ node_modules
 slack_settings.env
 irc_settings.env
 .*.sw[op]
+tail_nagios_log/debug.log
