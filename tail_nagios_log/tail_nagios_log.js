@@ -7,7 +7,7 @@
 [1563248404] SERVICE NOTIFICATION: notificationgroup;host.domain.com;Service Name;OK;notify-by-email;Service Message
 */
 
-var Tail = require('always-tail');
+var Tail = require('always-tail2');
 var fs = require('fs');
 var utils = require('./utils');
 var filename = utils.logFilePath();
