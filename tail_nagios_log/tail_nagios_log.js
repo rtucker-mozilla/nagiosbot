@@ -10,6 +10,7 @@
 var Tail = require('always-tail2');
 var fs = require('fs');
 var utils = require('./utils');
+var util = require('util');
 var filename = utils.logFilePath();
 const axios = require('axios');
 
