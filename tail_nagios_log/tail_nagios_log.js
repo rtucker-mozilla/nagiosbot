@@ -26,6 +26,7 @@ if (!fs.existsSync(filename)) fs.writeFileSync(filename, "");
 var tail = new Tail(filename, '\n');
 var url = utils.hubotURL();
 
+console.log("starting")
 tail.on('line', function(line) {
     console.log("got line: " + line)
     var shouldPostResponse = utils.shouldPostLine(line);
