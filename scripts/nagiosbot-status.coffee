@@ -37,6 +37,7 @@ module.exports = (robot) ->
           if notificationObject.notificationType == 'SERVICE'
             messageText = "status #{notificationObject.hostName}:#{notificationObject.serviceName}"
             statusMessageObject = smp.parse(messageText)
+            console.log('statusMessageObject: ' + statusMessageObject)
             robot.emit statusMessageObject.emitCode, statusMessageObject, user, room
         else
             robot.messageRoom room, "Unable to lookup notification by index"

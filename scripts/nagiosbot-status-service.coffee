@@ -25,6 +25,7 @@ module.exports = (robot) ->
         "Filter: host_name ~~ " + messageObject.hostNameSearch
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
+      console.log('hostQuery: ' + hostQuery)
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
         hostResponse = data
         resp = new smp.StatusMessageParser(data)
