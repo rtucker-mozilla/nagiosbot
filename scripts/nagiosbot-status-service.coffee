@@ -28,6 +28,7 @@ module.exports = (robot) ->
       console.log('hostQuery: ' + hostQuery)
       livestatus.executeQuery process.env.HUBOT_LIVESTATUS_SOCKET_PATH, hostQuery, (data) =>
         hostResponse = data
+        console.log('data: ' + data)
         resp = new smp.StatusMessageParser(data)
         if robot.adapterName == "slack"
           if data
