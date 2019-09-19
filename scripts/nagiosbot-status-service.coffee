@@ -26,7 +26,7 @@ module.exports = (robot) ->
       ]
       hostQuery = hostQueryArray.join("\n") + "\n\n"
       console.log('hostQuery: ' + hostQuery)
-      livestatus.executeQuery(hostQuery).then(data) ->
+      livestatus.executeQuery(hostQuery).then (data) ->
         hostResponse = data
         console.log('data: ' + data)
         resp = new smp.StatusMessageParser(data)
