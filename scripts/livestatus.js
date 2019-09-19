@@ -18,7 +18,8 @@ module.exports.executeQuery = function(query){
           client.destroy(); // kill client after server's response
           resolve(data);
       });
-      client.on("error",  function() {
+      client.on("error",  function(err) {
+          console.log(err)
           reject(new Error("Query Failed"));
       });
     });
