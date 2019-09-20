@@ -176,4 +176,4 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     lastCheckedInt = @segmentByDelimeter @line, ';', 3
     lastCheckedInt = parseInt(lastCheckedInt)
     @lastChecked = moment.unix(lastCheckedInt).utc().format('YYYY-MM-DD HH:mm:ss UTC')
-    @serviceDescription = @segmentByDelimeter @line, ';', 5
+    @serviceName = @segmentByDelimeter @line, ';', 5
