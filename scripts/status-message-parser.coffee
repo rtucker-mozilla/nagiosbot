@@ -167,16 +167,12 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     return input.split(delimeter)[index]
 
   formattedResponse: ->
-    emoji = statusClassificationEmoji[@statusText]
     @parse()
+    emoji = statusClassificationEmoji[@statusText]
     if @serviceName
       addLine = "#{emoji} #{@hostName}:#{@serviceName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
     else
       addLine = "#{emoji} #{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
-    if process.env.HUBOT_OK_EMOJI
-      try
-        addLine = process.env['HUBOT_' + @statusText + '_EMOJI'] + ' ' + addLine
-      catch
     return addLine
 
   parse: ->
