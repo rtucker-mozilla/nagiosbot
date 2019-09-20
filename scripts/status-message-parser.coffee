@@ -70,7 +70,7 @@ module.exports.parse = (message) ->
   if message == "status"
     ret.emitCode = "status:global"
     return ret
-  serviceRegex = /^status[\s\:]+(.*):(.*)/
+  serviceRegex = /^status[\s\:]+(.*?):(.*)/
   hostOnlyRegex = /^status[\s\:]+(.*)/
   if match = message.match(serviceRegex)
     ret.hasService = true
