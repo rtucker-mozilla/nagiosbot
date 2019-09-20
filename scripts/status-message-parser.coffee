@@ -85,7 +85,7 @@ module.exports.parse = (message) ->
       ret.hostNameSearch = '^' + ret.hostName + '$'
     ret.serviceName = match[2]
     # slack insists on prepending http, so annoying
-    reg.serviceName = ret.serviceName.replace(/http:\/\//,'')
+    ret.serviceName = ret.serviceName.replace(/http:\/\//,'')
 
     if ret.serviceName.includes('*')
       ret.serviceNameWildcard = true
