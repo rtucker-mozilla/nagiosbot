@@ -1,5 +1,16 @@
 strftime = require('strftime')
 moment = require('moment')
+statusClassificationEmoji = {
+  "UP": ":nagios_status_ok_green:",
+  "DOWNTIMESTART (UP)": ":nagios_status_ok_green:",
+  "DOWNTIMEEND (UP)": ":nagios_status_ok_green:",
+  "ACKNOWLEDGEMENT (CRITICAL)": ":nagios_status_critical_red:",
+  "ACKNOWLEDGEMENT (OK)": ":nagios_status_ok_green:",
+  "DOWN": ":nagios_status_critical_red:",
+  "CRITICAL": ":nagios_status_critical_red:",
+  "OK": ":nagios_status_ok_green:",
+  "WARNING": ":nagios_status_warning_yellow:",
+}
 
 statuses = {
   0 : {
@@ -156,11 +167,12 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
     return input.split(delimeter)[index]
 
   formattedResponse: ->
+    emoji = statusClassificationEmoji[@statusText]
     @parse()
     if @serviceName
-      addLine = "#{@hostName}:#{@serviceName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
+      addLine = "#{emoji} #{@hostName}:#{@serviceName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
     else
-      addLine = "#{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
+      addLine = "#{emoji} #{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
     if process.env.HUBOT_OK_EMOJI
       try
         addLine = process.env['HUBOT_' + @statusText + '_EMOJI'] + ' ' + addLine
