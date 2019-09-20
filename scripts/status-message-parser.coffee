@@ -157,7 +157,10 @@ exports.StatusMessageLineParser = class StatusMessageLineParser
 
   formattedResponse: ->
     @parse()
-    addLine = "#{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
+    if @serviceName
+      addLine = "#{@hostName}:#{@serviceName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
+    else
+      addLine = "#{@hostName} is #{@statusText} - #{@serviceDescription} - Last Checked #{@lastChecked}"
     if process.env.HUBOT_OK_EMOJI
       try
         addLine = process.env['HUBOT_' + @statusText + '_EMOJI'] + ' ' + addLine
