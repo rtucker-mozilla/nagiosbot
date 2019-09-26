@@ -12,9 +12,14 @@ commandAck = require('./command-ack.coffee')
 command = require('./command.coffee')
 module.exports = (robot) ->
 # ack by id index numb er
-  robot.respond /ack\s+(\d+)\s+(.*)$/i, (msg, user) ->
+  robot.respond /ack\s+(\d+)\s?(.*)?$/i, (msg, user) ->
+    console.log("asfasfasdfasdfsadfasdfasdfas fasdfkasfd hkjasfd hkjsadf hkjlasfk jhasf kjasfhkjlasf hkas")
     msgId = msg.match[1]
     comment = msg.match[2]
+    console.log(msgId)
+    if !comment or comment == ""
+      msg.reply "Comment Required"
+      return
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
     if notificationObject

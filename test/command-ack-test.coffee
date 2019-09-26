@@ -9,7 +9,7 @@ co     = require('co')
 expect = require('chai').expect
 commandAck = require('../scripts/command-ack.coffee')
 
-re = /ack\s+(\d+)$/i
+re = /ack\s+(\d+)\s+(.*)$/i
 describe 'ack', ->
   beforeEach ->
     @room = helper.createRoom(httpd: false)
@@ -139,3 +139,22 @@ describe 'ack', ->
         )
       ca.interpolate()
       expect(ca.commandArray[2]).to.equal 'Test Service'
+
+describe 'ack without message tells user message is required', ->
+
+  beforeEach ->
+    @room = helper.createRoom(httpd: false)
+  afterEach ->
+    @room.destroy()
+
+  context 'downtime all services by hostname with wildcard', ->
+    beforeEach ->
+      co =>
+        yield @response = @room.user.say 'bob', '@hubot: ack 1234'
+
+    it 'should tell user message required', ->
+      response = "@bob Comment Required"
+      expect(@room.messages).to.eql [
+        ['bob',   '@hubot: ack 1234']
+        ['hubot', response]
+      ]
