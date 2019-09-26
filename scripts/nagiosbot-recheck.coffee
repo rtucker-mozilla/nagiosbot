@@ -43,7 +43,7 @@ module.exports = (robot) ->
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
 
-  robot.respond /recheck\s+(.*):(.*)\s?(.*)?/i, (msg, user) ->
+  robot.respond /recheck\s+(.*?):(.*?)\s?(.*)?/i, (msg, user) ->
     console.log('matched servcice')
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
@@ -75,7 +75,7 @@ module.exports = (robot) ->
       message = message + ' in ' + msg.match[2]
     msg.reply message
 
-  robot.respond /recheck\s+(.*)\s?(.*)?/i, (msg, user) ->
+  robot.respond /recheck\s+(.*?)\s?(.*)?/i, (msg, user) ->
     console.log('matched host only')
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
