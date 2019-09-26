@@ -1,6 +1,6 @@
 # Description:
 # Commands:
-#   hubot ack <index> <comment>  hubot ack 1234 Known Ooutage
+#   hubot ack <index> <comment> - nagiosbot ack 1234 Known Outage
 
 commandAck = require('./command-ack.coffee')
 command = require('./command.coffee')
