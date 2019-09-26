@@ -43,7 +43,7 @@ module.exports = (robot) ->
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
 
-  robot.respond /status[\s\:]+(.*?):([^\s])\s+(.*)/i, (msg, user) ->
+  robot.respond /status[\s\:]+(.*?):([^\s])\s?(.*)?/i, (msg, user) ->
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
     serviceName = msg.match[2]
@@ -55,7 +55,7 @@ module.exports = (robot) ->
         validTimestampDirective = true
         timestampObj = moment().unix() + timestampObj
     ca = new commandRecheck.CommandRecheck(
-      hostname,
+      hostName,
       serviceName,
       timestampObj
       )
