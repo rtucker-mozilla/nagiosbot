@@ -1,7 +1,7 @@
 # Description:
-#   Handle execution of downtime for a host
-#
-# Notes:
+# Commands:
+#   hubot downtime <hostname>:<service> <duration> <message> - nagiosbot downtime foo.mozilla.com:Replication 1h updates
+#   hubot downtime <hostname> <duration> <message> - nagiosbot downtime foo.mozilla.com 1h kernel update
 #
 
 utils = require("./utils.coffee")
