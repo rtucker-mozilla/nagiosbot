@@ -9,7 +9,9 @@ statusClassificationEmoji = {
   "ACKNOWLEDGEMENT (OK)": ":nagios_status_ok_green:",
   "DOWN": ":nagios_status_critical_red:",
   "CRITICAL": ":nagios_status_critical_red:",
+  "PING CRITICAL": ":nagios_status_critical_red:",
   "OK": ":nagios_status_ok_green:",
+  "PING OK": ":nagios_status_ok_green:",
   "WARNING": ":nagios_status_warning_yellow:",
 }
 
