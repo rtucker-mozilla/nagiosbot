@@ -43,12 +43,12 @@ module.exports = (robot) ->
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
 
-  robot.respond /recheck\s+(.*?):(.*?)\s?(.*)?/i, (msg, user) ->
+  robot.respond /recheck\s+(.*):(.*)\s?(.*)?/i, (msg, user) ->
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
     serviceName = msg.match[2]
     if msg.match[3]
-      timestampObj = ed.extractDuration(msg.match[2])
+      timestampObj = ed.extractDuration(msg.match[3])
       if timestampObj == 0
         timestampObj = null
       else
