@@ -46,6 +46,7 @@ module.exports = (robot) ->
   robot.respond /recheck\s+(.*):(.*)\s?(.*)?/i, (msg, user) ->
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
+    hostName = hostName.replace(/http\:\/\//,'')
     serviceName = msg.match[2]
     if msg.match[3]
       timestampObj = ed.extractDuration(msg.match[3])
