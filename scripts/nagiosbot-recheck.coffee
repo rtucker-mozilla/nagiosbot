@@ -49,6 +49,7 @@ module.exports = (robot) ->
     hostName = msg.match[1]
     hostName = hostName.replace(/http\:\/\//,'')
     serviceName = msg.match[2]
+    console.log(msg)
     if msg.match[3]
       timestampObj = ed.extractDuration(msg.match[3])
       if timestampObj == 0
