@@ -15,7 +15,7 @@ var filename = utils.logFilePath();
 const axios = require('axios');
 var hubotLogLevel = process.env.HUBOT_LOG_LEVEL || false
 
-var debug = false;
+var shouldDebugLog = false;
 if (hubotLogLevel == 'debug'){
     shouldDebugLog = true;
 }
