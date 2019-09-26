@@ -73,3 +73,34 @@ module.exports = (robot) ->
     if validTimestampDirective
       message = message + ' in ' + msg.match[2]
     msg.reply message
+
+  robot.respond /recheck\s+(.*)\s?(.*)?/i, (msg, user) ->
+    user = robot.brain.userForId msg.envelope.user.id
+    hostName = msg.match[1]
+    hostName = hostName.replace(/http\:\/\//,'')
+    serviceName = null
+    if msg.match[2]
+      timestampObj = ed.extractDuration(msg.match[2])
+      if timestampObj == 0
+        timestampObj = null
+      else
+        validTimestampDirective = true
+        timestampObj = moment().unix() + timestampObj
+    ca = new commandRecheck.CommandRecheck(
+      hostName,
+      serviceName,
+      timestampObj
+      )
+    ca.interpolate()
+    cmd = new command.Command(ca.commandString)
+    cmd.execute()
+
+    message = ""
+    if serviceName
+      message = "Rechecking #{serviceName} on #{hostName}"
+    else
+      message = "Rechecking all services on #{hostName}"
+
+    if validTimestampDirective
+      message = message + ' in ' + msg.match[2]
+    msg.reply message
