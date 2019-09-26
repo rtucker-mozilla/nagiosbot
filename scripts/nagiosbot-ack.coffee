@@ -18,7 +18,7 @@ module.exports = (robot) ->
     comment = msg.match[2]
     console.log(msgId)
     if !comment or comment == ""
-      msg.reply "Comment Required"
+      msg.reply "usage: ack <index> <comment>"
       return
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())

@@ -153,7 +153,7 @@ describe 'ack without message tells user message is required', ->
         yield @response = @room.user.say 'bob', '@hubot: ack 1234'
 
     it 'should tell user message required', ->
-      response = "@bob Comment Required"
+      response = "@bob usage: ack <index> <comment>"
       expect(@room.messages).to.eql [
         ['bob',   '@hubot: ack 1234']
         ['hubot', response]
