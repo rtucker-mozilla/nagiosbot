@@ -1,19 +1,12 @@
 # Description:
-#   Example scripts for you to examine and try out.
-#
-# Notes:
-#   They are commented out by default, because most of them are pretty silly and
-#   wouldn't be useful and amusing enough for day to day huboting.
-#   Uncomment the ones you want to try and experiment with.
-#
-#   These are from the scripting documentation: https://github.com/github/hubot/blob/master/docs/scripting.md
+# Commands:
+#   hubot ack <index> <comment>  hubot ack 1234 Known Ooutage
 
 commandAck = require('./command-ack.coffee')
 command = require('./command.coffee')
 module.exports = (robot) ->
 # ack by id index numb er
   robot.respond /ack\s+(\d+)\s?(.*)?$/i, (msg, user) ->
-    console.log("asfasfasdfasdfsadfasdfasdfas fasdfkasfd hkjasfd hkjsadf hkjlasfk jhasf kjasfhkjlasf hkas")
     msgId = msg.match[1]
     comment = msg.match[2]
     console.log(msgId)
