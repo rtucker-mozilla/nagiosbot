@@ -99,7 +99,7 @@ module.exports = (robot) ->
     if serviceName
       message = "Rechecking #{serviceName} on #{hostName}"
     else
-      message = "Rechecking all services on #{hostName}"
+      message = "Rechecking all services on `#{hostName}`"
 
     if validTimestampDirective
       message = message + ' in ' + msg.match[2]
