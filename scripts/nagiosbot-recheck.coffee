@@ -42,3 +42,33 @@ module.exports = (robot) ->
       msg.reply message
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
+
+  robot.respond /status[\s\:]+(.*?):([^\s])\s+(.*)/i, (msg, user) ->
+    user = robot.brain.userForId msg.envelope.user.id
+    hostName = msg.match[1]
+    serviceName = msg.match[2]
+    if msg.match[3]
+      timestampObj = ed.extractDuration(msg.match[2])
+      if timestampObj == 0
+        timestampObj = null
+      else
+        validTimestampDirective = true
+        timestampObj = moment().unix() + timestampObj
+    ca = new commandRecheck.CommandRecheck(
+      hostname,
+      serviceName,
+      timestampObj
+      )
+    ca.interpolate()
+    cmd = new command.Command(ca.commandString)
+    cmd.execute()
+
+    message = ""
+    if serviceName
+      message = "Rechecking #{serviceName} on #{hostName}"
+    else
+      message = "Rechecking all services on #{hostName}"
+
+    if validTimestampDirective
+      message = message + ' in ' + msg.match[2]
+    msg.reply message
