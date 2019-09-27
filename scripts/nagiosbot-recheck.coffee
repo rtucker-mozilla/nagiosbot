@@ -43,20 +43,30 @@ module.exports = (robot) ->
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
 
-  robot.respond /recheck\s+http\:\/\/(.*):(.*)?\s?(.*)?/i, (msg, user) ->
+  robot.respond /recheck\s+http\:\/\/(.*)$/i, (msg, user) ->
+    console.log('matched service')
+    user = robot.brain.userForId msg.envelope.user.id
+    hostName = msg.match[1]
+    hostName = hostName.replace(/http\:\/\//,'')
+    timestampObj = moment().unix() + timestampObj
+    ca = new commandRecheck.CommandRecheck(
+      hostName,
+      null,
+      timestampObj
+      )
+    ca.interpolate()
+    cmd = new command.Command(ca.commandString)
+    cmd.execute()
+    message = "Rechecking all services on #{hostName}"
+    msg.reply message
+
+  robot.respond /recheck\s+http\:\/\/(.*):(.*)?/i, (msg, user) ->
     console.log('matched service')
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
     hostName = hostName.replace(/http\:\/\//,'')
     serviceName = msg.match[2]
-    console.log(msg.match)
-    if msg.match[3]
-      timestampObj = ed.extractDuration(msg.match[3])
-      if timestampObj == 0
-        timestampObj = null
-      else
-        validTimestampDirective = true
-        timestampObj = moment().unix() + timestampObj
+    timestampObj = moment().unix() + timestampObj
     ca = new commandRecheck.CommandRecheck(
       hostName,
       serviceName,
@@ -65,13 +75,5 @@ module.exports = (robot) ->
     ca.interpolate()
     cmd = new command.Command(ca.commandString)
     cmd.execute()
-
-    message = ""
-    if serviceName
-      message = "Rechecking #{serviceName} on #{hostName}"
-    else
-      message = "Rechecking all services on #{hostName}"
-
-    if validTimestampDirective
-      message = message + ' in ' + msg.match[2]
+    message = "Rechecking #{serviceName} on #{hostName}"
     msg.reply message
