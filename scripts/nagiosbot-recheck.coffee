@@ -43,8 +43,8 @@ module.exports = (robot) ->
     else
       msg.reply "Unable to find object by index #{msg.match[1]}"
 
-  robot.respond /recheck\s+http\:\/\/(.*):?(.*)?\s?(.*)?/i, (msg, user) ->
-    console.log('matched servcice')
+  robot.respond /recheck\s+http\:\/\/(.*):(.*)?\s?(.*)?/i, (msg, user) ->
+    console.log('matched service')
     user = robot.brain.userForId msg.envelope.user.id
     hostName = msg.match[1]
     hostName = hostName.replace(/http\:\/\//,'')
