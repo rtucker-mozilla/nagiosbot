@@ -14,6 +14,7 @@ statusClassificationEmoji = {
   "OK": ":nagios_status_ok_green:",
   "PING OK": ":nagios_status_ok_green:",
   "WARNING": ":nagios_status_warning_yellow:",
+  "UNKNOWN": ":nagios_status_warning_yellow:",
 }
 
 module.exports = statusClassificationEmoji
