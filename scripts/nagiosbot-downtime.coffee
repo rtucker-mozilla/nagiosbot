@@ -53,6 +53,7 @@ module.exports = (robot) ->
         msgId,
         msg
       }
+      return
     livestatus.getHost(msg.match[2]).then (result) ->
       for entry in result.split(/\n/)
         hostName = entry.split(/;/)[0]
