@@ -21,7 +21,7 @@ module.exports = (robot) ->
     if notificationObject
       downtimeIntervalMatch = msg.match[4].match(/^(\d+)([hdms])/)
       downtimeInterval = downtimeIntervalMatch[1] + downtimeIntervalMatch[2]
-      message = match[5].replace(downtimeInterval, "")
+      message = msg.match[5].replace(downtimeInterval, "")
       ca = new commandDowntime.CommandDowntime(
         notificationObject.hostName,
         notificationObject.serviceName,
