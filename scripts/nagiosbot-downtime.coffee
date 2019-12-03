@@ -56,6 +56,8 @@ module.exports = (robot) ->
         user = robot.brain.userForId msg.envelope.user.id
         cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user)
         cd.interpolate()
+        if debug
+          console.log(cd.commandString)
         cmd = new command.Command(cd.commandString)
         cmd.execute()
         msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
