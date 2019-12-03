@@ -46,19 +46,18 @@ module.exports = (robot) ->
   robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
     if debug
       console.log(msg.match)
-    livestatus.getHost(hostName).then (result) ->
+    livestatus.getHost(msg.match[2]).then (result) ->
       for entry in result.split(/\n/)
-        hostName = hostString.split(/;/)[0]
+        hostName = entry.split(/;/)[0]
         if debug
           console.log("result is: " + result)
-        try
-          serviceName = msg.match[2]
-          downtimeInterval = msg.match[4]
-          user = robot.brain.userForId msg.envelope.user.id
-          cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user)
-          cd.interpolate()
-          cmd = new command.Command(cd.commandString)
-          cmd.execute()
-          msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
+        serviceName = msg.match[2]
+        downtimeInterval = msg.match[4]
+        user = robot.brain.userForId msg.envelope.user.id
+        cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user)
+        cd.interpolate()
+        cmd = new command.Command(cd.commandString)
+        cmd.execute()
+        msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
       msg.reply error
