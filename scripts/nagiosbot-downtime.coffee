@@ -55,6 +55,7 @@ module.exports = (robot) ->
       }
       return
     livestatus.getHost(msg.match[2]).then (result) ->
+      user = robot.brain.userForId msg.envelope.user.id
       for entry in result.split(/\n/)
         hostName = entry.split(/;/)[0]
         if debug
