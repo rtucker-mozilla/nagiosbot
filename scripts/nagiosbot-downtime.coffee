@@ -51,7 +51,7 @@ module.exports = (robot) ->
         hostName = entry.split(/;/)[0]
         if debug
           console.log("result is: " + result)
-        serviceName = msg.match[2]
+        serviceName = msg.match[3]
         if serviceName == '*'
           serviceName = null
         downtimeInterval = msg.match[4]
