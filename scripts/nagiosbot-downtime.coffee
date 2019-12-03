@@ -10,6 +10,7 @@ smp = require("./status-message-parser.coffee")
 commandDowntime = require('./command-downtime.coffee')
 command = require('./command.coffee')
 livestatus = require('./livestatus.js')
+debug = true
 
 module.exports = (robot) ->
   robot.respond /downtime\s+(\d+)\s?(.*)?$/i, (msg, user) ->
@@ -43,6 +44,8 @@ module.exports = (robot) ->
 
 
   robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
+    if debug
+      console.log(msg)
     livestatus.getHost(msg.match[2]).then (result) ->
       hostName = msg.match[2]
       serviceName = msg.match[2]
