@@ -55,7 +55,7 @@ module.exports = (robot) ->
       cd.interpolate()
       cmd = new command.Command(cd.commandString)
       cmd.execute()
-      msg.reply "Downtime for #{msg.match[1]} scheduled for #{cd.downtimeInterval}"
+      msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
       msg.reply error
 
