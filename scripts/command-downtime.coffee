@@ -7,33 +7,7 @@ debug = true
 module.exports.CommandDowntime = class CommandDowntime extends base.CommandBaseClass
   constructor: (@hostname, @serviceName, @downtimeInterval, @message, @source, @notificationObject) ->
     @commandArray = []
-    @hostname = @fixHostname(@match[1])
-    if !@notificationObject
-      @hostname = @fixHostname(@match[1])
-      @serviceName = @match[2] || null
-      @downtimeInterval = @match[3]
-      @message = @match[4]
-    else
-      if @notificationObject
-        @hostname = @notificationObject.hostName
-        @serviceName = @notificationObject.serviceName
-        if debug
-          console.log "notificationObject.hostName: " + @notificationObject.hostName
-          console.log "notificationObject.serviceName: " + @notificationObject.serviceName
-          console.log "match: " + @match
-          console.log "match[2]: " + @match[2]
-      
-        @downtimeIntervalMatch = @match[2].match(/^(\d+)([hdms])/)
-        if @downtimeIntervalMatch
-          @downtimeInterval = @downtimeIntervalMatch[1] + @downtimeIntervalMatch[2]
-        if debug
-          console.log "downtimeInterval" + @downtimeInterval
-        @message = @match[2].replace(@downtimeInterval, "")
-        if debug
-          console.log @notificationObject.hostName
-          console.log @notificationObject.serviceName
-          console.log @downtimeInterval
-          console.log @message
+    @hostname = @fixHostname(@hostname)
 
     if @serviceName
       @verb = "SCHEDULE_SVC_DOWNTIME"
