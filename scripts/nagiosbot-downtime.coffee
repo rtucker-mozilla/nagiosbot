@@ -48,6 +48,8 @@ module.exports = (robot) ->
       console.log(msg.match)
     hostName = msg.match[2]
     livestatus.getHost(hostName).then (result) ->
+      if debug
+        console.log(result)
       serviceName = msg.match[2]
       downtimeInterval = msg.match[4]
       user = robot.brain.userForId msg.envelope.user.id
