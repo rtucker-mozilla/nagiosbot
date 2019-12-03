@@ -5,9 +5,9 @@ ed = require('./extractDuration')
 
 debug = true
 module.exports.CommandDowntime = class CommandDowntime extends base.CommandBaseClass
-  constructor: (@match, @source, @notificationObject) ->
-    @message = ""
+  constructor: (@hostname, @serviceName, @downtimeInterval, @message, @source, @notificationObject) ->
     @commandArray = []
+    @hostname = @fixHostname(@match[1])
     if !@notificationObject
       @hostname = @fixHostname(@match[1])
       @serviceName = @match[2] || null

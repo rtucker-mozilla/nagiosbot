@@ -17,16 +17,20 @@ module.exports = (robot) ->
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
     if notificationObject
+      downtimeIntervalMatch = @match[2].match(/^(\d+)([hdms])/)
+      downtimeInterval = @downtimeIntervalMatch[1] + @downtimeIntervalMatch[2]
+      message = @match[2].replace(@downtimeInterval, "")
       ca = new commandDowntime.CommandDowntime(
-        msg.match,
+        notificationObject.hostName,
+        notificationObject.serviceName,
+        downtimeInterval,
+        message,
         user.name,
-        notificationObject
         )
       ca.interpolate()
       cmd = new command.Command(ca.commandString)
       cmd.execute()
 
-      message = ""
       if notificationObject.serviceName
         message = "Downtiming #{notificationObject.serviceName} on #{notificationObject.hostName}"
       else
@@ -38,10 +42,13 @@ module.exports = (robot) ->
 
 
 
-  robot.respond /.*downtime\s+http\:\/\/([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)\s*/i, (msg) ->
-    livestatus.getHost(msg.match[1]).then (result) ->
+  robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
+    livestatus.getHost(msg.match[2]).then (result) ->
+      hostName = msg.match[2]
+      serviceName = msg.match[2]
+      downtimeInterval = msg.match[4]
       user = robot.brain.userForId msg.envelope.user.id
-      cd = new commandDowntime.CommandDowntime(msg.match, user.name, null)
+      cd = new commandDowntime.CommandDowntime(hostname, serviceName, downtimeInterval, msg.match[5], user)
       cd.interpolate()
       cmd = new command.Command(cd.commandString)
       cmd.execute()
