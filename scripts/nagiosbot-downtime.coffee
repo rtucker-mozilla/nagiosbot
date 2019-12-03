@@ -45,7 +45,7 @@ module.exports = (robot) ->
 
   robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
     if debug
-      console.log(msg)
+      console.log(msg.match)
     livestatus.getHost(msg.match[2]).then (result) ->
       hostName = msg.match[2]
       serviceName = msg.match[2]
