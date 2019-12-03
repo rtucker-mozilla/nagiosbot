@@ -55,20 +55,18 @@ module.exports = (robot) ->
     livestatus.getHost(msg.match[2]).then (result) ->
       for entry in result.split(/\n/)
         hostName = entry.split(/;/)[0]
-
-        else
-          if debug
-            console.log("result is: " + result)
-          serviceName = msg.match[3]
-          if serviceName == '*'
-            serviceName = null
-          downtimeInterval = msg.match[4]
-          cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user.name)
-          cd.interpolate()
-          if debug
-            console.log(cd.commandString)
-          cmd = new command.Command(cd.commandString)
-          cmd.execute()
-          msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
+        if debug
+          console.log("result is: " + result)
+        serviceName = msg.match[3]
+        if serviceName == '*'
+          serviceName = null
+        downtimeInterval = msg.match[4]
+        cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user.name)
+        cd.interpolate()
+        if debug
+          console.log(cd.commandString)
+        cmd = new command.Command(cd.commandString)
+        cmd.execute()
+        msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
       msg.reply error
