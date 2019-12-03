@@ -13,8 +13,9 @@ livestatus = require('./livestatus.js')
 debug = true
 
 module.exports = (robot) ->
-  robot.on "downtime-by-index", (msgId, msg) ->
-    msgId = msg.match[1]
+  robot.on "downtime-by-index", (payload) ->
+    msgId = payload.msgId
+    msg = payload.msg
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
     if notificationObject
