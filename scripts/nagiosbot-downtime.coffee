@@ -52,9 +52,11 @@ module.exports = (robot) ->
         if debug
           console.log("result is: " + result)
         serviceName = msg.match[2]
+        if serviceName == '*'
+          serviceName = null
         downtimeInterval = msg.match[4]
         user = robot.brain.userForId msg.envelope.user.id
-        cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user)
+        cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user.name)
         cd.interpolate()
         if debug
           console.log(cd.commandString)
