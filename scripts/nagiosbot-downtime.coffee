@@ -13,7 +13,7 @@ livestatus = require('./livestatus.js')
 debug = true
 
 module.exports = (robot) ->
-  robot.respond /downtime\s+(\d+)\s?(.*)?$/i, (msg, user) ->
+  robot.on "downtime-by-index", (msgId, msg) ->
     msgId = msg.match[1]
     user = robot.brain.userForId msg.envelope.user.id
     notificationObject = robot.brain.get(msgId.toString())
@@ -46,22 +46,29 @@ module.exports = (robot) ->
   robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
     if debug
       console.log(msg.match)
+    if msg.match[2].match(/\d+/)
+      msgId = msg.match[2]
+      robot.emit "downtime-by-index", {
+        msgId,
+        msg
+      }
     livestatus.getHost(msg.match[2]).then (result) ->
       for entry in result.split(/\n/)
         hostName = entry.split(/;/)[0]
-        if debug
-          console.log("result is: " + result)
-        serviceName = msg.match[3]
-        if serviceName == '*'
-          serviceName = null
-        downtimeInterval = msg.match[4]
-        user = robot.brain.userForId msg.envelope.user.id
-        cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user.name)
-        cd.interpolate()
-        if debug
-          console.log(cd.commandString)
-        cmd = new command.Command(cd.commandString)
-        cmd.execute()
-        msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
+
+        else
+          if debug
+            console.log("result is: " + result)
+          serviceName = msg.match[3]
+          if serviceName == '*'
+            serviceName = null
+          downtimeInterval = msg.match[4]
+          cd = new commandDowntime.CommandDowntime(hostName, serviceName, downtimeInterval, msg.match[5], user.name)
+          cd.interpolate()
+          if debug
+            console.log(cd.commandString)
+          cmd = new command.Command(cd.commandString)
+          cmd.execute()
+          msg.reply "Downtime for #{hostName} scheduled for #{cd.downtimeInterval}"
     .catch (error) ->
       msg.reply error
