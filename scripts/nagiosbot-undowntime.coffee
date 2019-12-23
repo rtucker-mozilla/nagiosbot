@@ -11,7 +11,7 @@ command = require('./command.coffee')
 livestatus = require('./livestatus.js')
 
 module.exports = (robot) ->
-  robot.respond /.*undowntime\s+(http\:\/\/)?([^: ]+)$/, (msg) ->
+  robot.respond /.*undowntime\s+(http\:\/\/)?([^: ]+)(?::(.*))?/i, (msg) ->
   livestatus.getHost(msg.match[2]).then (result) ->
     user = robot.brain.userForId msg.envelope.user.id
     for entry in result.split(/\n/)
@@ -25,4 +25,3 @@ module.exports = (robot) ->
         msg.reply "Downtime for #{msg.match[1]} cancelled"
       .catch (error) ->
         msg.reply error
-        
