@@ -4,19 +4,25 @@
 # Notes:
 #
 
+debug = true
+
 commandUndowntime = require('./command-undowntime.coffee')
 command = require('./command.coffee')
 livestatus = require('./livestatus.js')
 
 module.exports = (robot) ->
-  robot.respond /.*undowntime\s+http\:\/\/([^: ]+)$/i, (msg) ->
-    livestatus.downtimesByHost(msg.match[1]).then (result) ->
-      user = robot.brain.userForId msg.envelope.user.id
-      cd = new commandUndowntime.CommandUndowntime(result, user.name)
-      cd.interpolate()
-      cmd = new command.Command(cd.commandString)
-      cmd.execute()
-      msg.reply "Downtime for #{msg.match[1]} cancelled"
-    .catch (error) ->
-      msg.reply error
-
+  robot.respond /.*undowntime\s+(http\:\/\/)?([^: ]+)$/, (msg) ->
+  livestatus.getHost(msg.match[2]).then (result) ->
+    user = robot.brain.userForId msg.envelope.user.id
+    for entry in result.split(/\n/)
+      hostName = entry.split(/;/)[0]
+      livestatus.downtimesByHost(hostName).then (result) ->
+        user = robot.brain.userForId msg.envelope.user.id
+        cd = new commandUndowntime.CommandUndowntime(result, user.name)
+        cd.interpolate()
+        cmd = new command.Command(cd.commandString)
+        cmd.execute()
+        msg.reply "Downtime for #{msg.match[1]} cancelled"
+      .catch (error) ->
+        msg.reply error
+        
