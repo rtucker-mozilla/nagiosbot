@@ -54,9 +54,9 @@ module.exports = (robot) ->
         msg
       }
       return
-    if msg.match[2].includes("*http")
-      hostName = msg.match[2].replace("http", ".").concat msg.match[3].replace("//", "")
     hostName = msg.match[2].replace("http://", "")
+    if msg.match[3].startsWith("//")
+      hostName = msg.match[2].replace("http", ".").concat msg.match[3].replace("//", "")
     livestatus.getHost(hostName).then (result) ->
       user = robot.brain.userForId msg.envelope.user.id
       for entry in result.split(/\n/)
