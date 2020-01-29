@@ -58,7 +58,6 @@ module.exports = (robot) ->
       user = robot.brain.userForId msg.envelope.user.id
       for entry in result.split(/\n/)
         hostName = entry.split(/;/)[0]
-        hostName = hostName.replace("http://", "")
         if debug
           console.log("result is: " + result)
         serviceName = msg.match[3]
