@@ -47,7 +47,7 @@ module.exports = (robot) ->
   robot.respond /.*downtime\s+(http\:\/\/)?([^: ]+)(?::(.*))?\s+(\d+[dhms])\s+(.*)/i, (msg) ->
     if debug
       console.log(msg.match)
-    if msg.match[2].match(/\d+/)
+    if msg.match[2].match(/^\d+$/)
       msgId = msg.match[2]
       robot.emit "downtime-by-index", {
         msgId,
