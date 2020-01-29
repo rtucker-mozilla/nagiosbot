@@ -45,7 +45,7 @@ module.exports.buildWildcardQuery = function(iStr){
 };
 
 module.exports.getHost = function(hostname){
-    hostname = hostname.replace(/^http\:\/\//, "")
+    hostname = hostname.replace("http://", "")
     return new Promise (function(resolve, reject){
       hostQueryArray = [
         "GET hosts",
